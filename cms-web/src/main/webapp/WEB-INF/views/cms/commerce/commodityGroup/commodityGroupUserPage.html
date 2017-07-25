@@ -1,0 +1,47 @@
+<%
+layout("/resources/template/sub/grid.html",{functionPath:'/resources/js/cms/commerce/commodityGroup/page'}){
+%>
+
+<div class="wrapper wrapper-content animated fadeInUp">
+	<div class="breadcrumbBar">
+		<ol class="breadcrumb">
+			<li><a href="${basePath}/commerce/commodityGroup/page">团购管理</a></li>
+			<li class="active">参团人列表</li>
+		</ol>
+	</div>
+	<!-- Panel Other -->
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="ibox">
+				<div class="ibox-title">
+					<a href="${basePath}/commerce/commodityGroup/page?isBack=true" type="button"
+						class="btn  btn-default " title="返回"
+						style="float: left; margin-right: 10px;"> 返回 </a>
+					<h5>参团人列表</h5>
+				</div>
+				<div class="ibox-content">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="panel-body">
+								<div class="columns hidden-xs" style="margin-top: 0px;"
+									id="commodityGroupUserTableToolbar" role="group">
+									<form class="form-horizontal searchBar"
+										id="commodityGroupUserForm">
+										<label class="control-label">关键字：</label> <input id="seq"
+											type="text" placeholder="请输入关键词" class="form-control w-150"
+											name="seq" value="">
+									</form>
+								</div>
+								<table id="commodityGroupUserTable"
+									data-mobile-responsive="true">
+								</table>
+							</div>
+							<input type="hidden" id="commodityGroupId" value="${commodityGroupId}">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<%}%>

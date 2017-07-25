@@ -1,0 +1,46 @@
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="inStoreModal" tabindex="-1" role="dialog" aria-labelledby="inStoreModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="inStoreModalLabel">
+                	入库记录
+                </h4>
+            </div>
+            <div class="modal-body">
+            	<table id="inStoreTable"  data-mobile-responsive="true"
+		            	data-pagination="true"
+		            	data-side-pagination="server"
+		            	data-page-list="[10, 20, 30]"
+		            	data-page-number="1"
+		            	data-page-size="10"
+            	>
+            		<thead>
+            			<tr>
+            				<th data-field="name" data-align="center">商品名称</th>
+            				<th data-field="inStoreAmount" data-align="center">入库数量</th>
+            				<th data-field="storeAmount" data-align="center">库存</th>
+            				<th data-field="inStoreTime" data-align="center" 
+            					data-formatter="resultInStoreTime"
+            				>入库时间</th>
+            			</tr>
+            		</thead>
+				</table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+	function resultInStoreTime(value, row, index){
+		if(value==null||value==""){
+			return "";
+		}
+		var resultDate = new Date();
+		resultDate.setTime(value);
+		return resultDate.Format('yyyy-MM-dd HH:mm:ss')
+	}
+</script>

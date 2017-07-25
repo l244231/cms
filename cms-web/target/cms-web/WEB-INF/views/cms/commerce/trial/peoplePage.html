@@ -1,0 +1,37 @@
+<%  layout( "/resources/template/sub/grid.html",{functionPath: '/resources/js/cms/commerce/trial/peoplePage'}){ %>
+<script>
+var id = ${id}; 
+</script>
+  <div class="wrapper wrapper-content animated fadeInUp">
+    <!-- Panel Other -->
+    <div class=" float-e-margins">
+      <div class="row row-lg">
+        <div class="col-sm-12">
+          <div class="ibox">
+          	<div class="ibox-title">
+				<a href="javascript:history.go(-1);" type="button" class="btn  btn-default " title="返回" style="float: left; margin-right: 10px;"> 返回 </a>
+				<h5>试用申请人列表</h5>
+				<div class="ibox-tools">
+					<a type="button" class="btn   btn-primary " id="passAll" href="javascript:void(0);">
+						批量通过
+					</a>
+					<a type="button" class="btn   btn-primary " id="refuseAll" href="javascript:void(0);">
+						批量拒绝
+					</a>
+				</div>
+			</div>
+          	<div class="ibox-content">
+          		<div class="columns btn-group hidden-xs" style="margin-top:0px;" id="trialPeopleListToolbar" role="group">
+                    <form class="form-horizontal searchBar" id="audiovisualForm">
+                      <label class="control-label">关键字：</label>
+                      <input id="keyWord" type="text" placeholder="请输入关键词" class="form-control w-150" name="seq" />
+                    </form>
+                </div>
+                <table id="trialPeopleListTable" data-mobile-responsive="true"></table>
+          	</div>
+          </div>
+        </div>
+      </div>
+    </div> 
+    <!-- End Panel Other --></div>
+  <%}%>

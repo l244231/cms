@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.core.commerce.commodity.dao.CommodityColorDao">
+	<resultMap type="com.cms.core.commerce.commodity.domain.CommodityColorDto" id="rs_commodityColor">
+		<result property="commodityId" column="commodity_id" javaType="long" jdbcType="INTEGER" />
+		<result property="colorName" column="color_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="colorNameEn" column="color_name_en" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="priceFluctuation" column="price_fluctuation" javaType="double" jdbcType="NUMERIC" />
+		<result property="status" column="status" javaType="short" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<select id="findAllListByParams" parameterType="java.util.Map" resultMap="rs_commodityColor">
+		select id,commodity_id,color_name,color_name_en,price_fluctuation,status
+		from commodity_color
+		where status !=5
+		<if test="commodityId != null">
+			and commodity_id=#{commodityId}
+		</if>
+	</select>
+	
+	<insert id="insert"
+		parameterType="com.cms.core.commerce.commodity.domain.CommodityColorDto">
+		<selectKey resultType="java.lang.Long" order="AFTER"
+			keyProperty="id">
+			SELECT currval('commodity_color_id_seq') AS id
+		</selectKey>
+		insert into
+		commodity_color(commodity_id,color_name,color_name_en,price_fluctuation)
+		values(#{commodityId},#{colorName},#{colorNameEn},#{priceFluctuation})
+	</insert>
+	
+	<update id="deleteByParams" parameterType="java.util.Map">
+		update commodity_color set status=5 where commodity_id=#{commodityId}
+	</update>
+</mapper>

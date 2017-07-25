@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.core.commerce.commodity.dao.CommodityGroupDao">
+	<resultMap type="com.cms.core.commerce.commodity.domain.CommodityGroupDto"
+		id="rs_commodityGroup">
+		<result property="title" column="title" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="iconId" column="icon_id" javaType="long"
+			jdbcType="INTEGER" />
+		<result property="commodityId" column="commodity_id" javaType="long"
+			jdbcType="INTEGER" />
+		<result property="price" column="price" javaType="double"
+			jdbcType="NUMERIC" />
+		<result property="stock" column="stock" javaType="int"
+			jdbcType="INTEGER" />
+		<result property="sale" column="sale" javaType="int" jdbcType="INTEGER" />
+		<result property="sortId" column="sort_id" javaType="int"
+			jdbcType="INTEGER" />
+		<result property="homeRecommended" column="home_recommended"
+			javaType="int" jdbcType="INTEGER" />
+		<result property="singleSold" column="sigle_sold" javaType="int"
+			jdbcType="INTEGER" />
+		<result property="creationTime" column="creation_time"
+			javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result property="startTime" column="start_time" javaType="java.util.Date"
+			jdbcType="TIMESTAMP" />
+		<result property="expiryTime" column="expiry_time" javaType="java.util.Date"
+			jdbcType="TIMESTAMP" />
+		<result property="lastModified" column="last_modified"
+			javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result property="numberPeople" column="number_people"
+			javaType="int" jdbcType="INTEGER" />
+		<result property="numberPeopleActual" column="number_people_actual"
+			javaType="int" jdbcType="INTEGER" />
+		<result property="limits" column="limits" javaType="int"
+			jdbcType="INTEGER" />
+		<result property="status" column="status" javaType="short"
+			jdbcType="SMALLINT" />
+		<result property="popularity" column="popularity" javaType="int"
+			jdbcType="INTEGER" />
+	</resultMap>
+
+	<select id="findById" parameterType="long" resultMap="rs_commodityGroup">
+		SELECT id,
+		title, icon_id, commodity_id, price, stock, sale, sort_id,
+		home_recommended, sigle_sold, creation_time, start_time, expiry_time,
+		last_modified, limits, number_people, number_people_actual, status,
+		popularity
+		FROM commodity_group where id=#{id}
+	</select>
+
+	<select id="findListByParams" parameterType="java.util.Map"
+		resultType="java.util.HashMap">
+		select * from (SELECT a.id, (b.name) as title, b.list_icon_id,
+		a.commodity_id, a.price,
+		a.stock, a.sale, a.sort_id,
+		a.home_recommended, a.sigle_sold,
+		a.creation_time, a.start_time,
+		a.expiry_time,
+		a.last_modified,
+		a.limits, a.number_people,
+		a.number_people_actual, a.status,
+		a.popularity
+		FROM commodity_group a
+		left join commodity b on a.commodity_id=b.id and b.status!=5
+		where
+		a.status!=5
+		<if test="home_recommended!=null and home_recommended!=''">
+			and a.home_recommended=#{home_recommended}
+		</if>
+		<if test="keyword!=null and keyword!=''">
+			and a.title like #{keyword}
+		</if>
+		<if test="status==1">
+			and now() <![CDATA[ < ]]>
+			a.start_time
+		</if>
+		<if test="status==2">
+			and now() <![CDATA[ >= ]]>
+			a.start_time and now() <![CDATA[ <= ]]>
+			a.expiry_time
+		</if>
+		<if test="status==3">
+			and now() <![CDATA[ > ]]>
+			a.expiry_time
+		</if>
+		order by a.last_modified desc
+		) tmp
+		<if test="sort!=null and sort!=''">
+			order by "${sort}"
+			<if test="order!=null and order!=''">
+				${order}
+			</if>
+		</if>
+	</select>
+
+	<select id="findCommodityGroupUserByParams" parameterType="java.util.Map"
+		resultType="java.util.HashMap">
+		select
+		d.consignee,d.mobile,d.address,d.zip_code,d.creation_time,d.status,d.order_no
+		"orderNo"
+		from commodity_group_user a
+		left join orders d on
+		d.order_no = a.order_no
+		where 1=1
+		and a.status !=5
+		<if test="commodityGroupId!=null and commodityGroupId!=''">
+			and a.commodity_group_id=#{commodityGroupId}
+		</if>
+		order by a.id desc
+	</select>
+
+	<insert id="insert"
+		parameterType="com.cms.core.commerce.commodity.domain.CommodityGroupDto">
+		<selectKey resultType="java.lang.Long" order="AFTER"
+			keyProperty="id">
+			SELECT currval('commodity_group_id_seq') AS id
+		</selectKey>
+		insert into
+		commodity_group(title,icon_id,commodity_id,price,stock,sale,sort_id,home_recommended,sigle_sold,
+		start_time,expiry_time,creation_time,last_modified,limits,number_people,number_people_actual,popularity)
+		values(#{title},#{iconId},#{commodityId},#{price},#{stock},#{sale},#{sortId},#{homeRecommended},
+		#{singleSold},#{startTime},#{expiryTime},#{creationTime},#{lastModified},#{limits},#{numberPeople},#{numberPeopleActual},#{popularity})
+	</insert>
+
+	<update id="updateStock"
+		parameterType="com.cms.core.commerce.commodity.domain.CommodityGroupDto">
+		update commodity_group
+		set stock=#{stock}
+		where id = #{id}
+	</update>
+
+	<update id="update"
+		parameterType="com.cms.core.commerce.commodity.domain.CommodityGroupDto">
+		update commodity_group set
+		status=#{status},
+		home_recommended=#{homeRecommended},
+		number_people=#{numberPeople},
+		sort_id=#{sortId},
+		sigle_sold=#{singleSold},
+		start_time=#{startTime},
+		expiry_time=#{expiryTime},
+		price=#{price},
+		title=#{title}
+		where id =
+		#{id}
+	</update>
+
+	<select id="findByParams" parameterType="java.util.Map"
+		resultMap="rs_commodityGroup">
+		SELECT id, title, icon_id, commodity_id, price, stock, sale, sort_id,
+		home_recommended, sigle_sold, creation_time, start_time, expiry_time,
+		last_modified, limits, number_people, number_people_actual, status,
+		popularity
+		FROM commodity_group
+		where 1=1
+		<if test="status != null">
+			and status = #{status}
+		</if>
+		<if test="commodityId != null">
+			and commodity_id = #{commodityId}
+		</if>
+		order by sort_id desc
+	</select>
+</mapper>

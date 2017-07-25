@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.core.commerce.transaction.dao.CommodityGroupUserDao">
+	<resultMap type="com.cms.core.commerce.transaction.domain.CommodityGroupUserDto" id="rs_commodityGroupUser">
+		<result property="commodityGroupId" column="commodityGroupId" javaType="long" jdbcType="INTEGER" />
+		<result property="userId" column="userId" javaType="long" jdbcType="INTEGER" />
+		<result property="applyTime" column="applyTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result property="lastModified" column="lastModified" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="addressId" column="addressId" javaType="java.lang.String" jdbcType="VARCHAR" />
+	</resultMap>
+</mapper>

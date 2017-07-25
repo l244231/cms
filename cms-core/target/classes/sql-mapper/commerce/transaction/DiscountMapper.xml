@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.core.commerce.transaction.dao.DiscountDao">
+	<resultMap type="com.cms.core.commerce.transaction.domain.DiscountDto" id="rs_discount">
+		<result property="name" column="name" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="tiggerTime" column="tiggerTime" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="tiggerCommodityId" column="tiggerCommodityId" javaType="long" jdbcType="INTEGER" />
+		<result property="tiggerAmount" column="tiggerAmount" javaType="double" jdbcType="NUMERIC" />
+		<result property="tiggerStore" column="tiggerStore" javaType="long" jdbcType="INTEGER" />
+		<result property="tiggerAll" column="tiggerAll" javaType="long" jdbcType="INTEGER" />
+		<result property="startTime" column="startTime" javaType="long" jdbcType="INTEGER" />
+		<result property="expiryTime" column="expiryTime" javaType="long" jdbcType="INTEGER" />
+		<result property="creationTime" column="creationTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result property="lastModified" column="lastModified" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result property="discountFormId" column="discountFormId" javaType="long" jdbcType="INTEGER" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+</mapper>

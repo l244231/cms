@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.core.commerce.commodity.dao.CommodityDiscountDao">
+	<resultMap
+		type="com.cms.core.commerce.commodity.domain.CommodityDiscountDto" id="rs_commodityDiscount">
+		<result property="id" column="id" javaType="long" jdbcType="INTEGER" />
+		<result property="commodityId" column="commodity_id" javaType="long"
+			jdbcType="INTEGER" />
+		<result property="price" column="price" javaType="double"
+			jdbcType="NUMERIC" />
+		<result property="stock" column="stock" javaType="int"
+			jdbcType="INTEGER" />
+		<result property="sale" column="sale" javaType="int" jdbcType="INTEGER" />
+		<result property="sortId" column="sort_id" javaType="int"
+			jdbcType="INTEGER" />
+		<result property="homeRecommended" column="home_recommended"
+			javaType="int" jdbcType="INTEGER" />
+		<result property="singleSold" column="sigle_sold" javaType="int"
+			jdbcType="INTEGER" />
+		<result property="creationTime" column="creation_time"
+			javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result property="startTime" column="start_time" javaType="java.util.Date"
+			jdbcType="TIMESTAMP" />
+		<result property="expiryTime" column="expiry_time" javaType="java.util.Date"
+			jdbcType="TIMESTAMP" />
+		<result property="status" column="status" javaType="short"
+			jdbcType="INTEGER" />
+	</resultMap>
+
+	<select id="findListByParams" parameterType="java.util.Map"
+		resultType="java.util.HashMap">
+		select * from (SELECT
+		cd.id,
+		cd.commodity_id "commodityId",
+		cd.price,
+		cd.stock,
+		cd.sale,
+		cd.sort_id "sortId",
+		cd.home_recommended
+		"homeRecommended",
+		cd.sigle_sold "singleSold",
+		cd.creation_time
+		"creationTime",
+		cd.start_time "startTime",
+		cd.expiry_time "expiryTime",
+		cd.status,
+		c.name "commodityName",
+		c.list_icon_id "imageId",
+		c.price
+		"amount"
+		FROM commodity_discount cd
+		left join commodity c
+		on c.id =
+		cd.commodity_id
+		where cd.status != 5
+		<if test="status != null and status != -1">
+			and cd.status = #{status}
+		</if>
+		<if test="type == 0">
+			<![CDATA[ and start_time > now()]]>
+		</if>
+		<if test="type == 1">
+			<![CDATA[ and start_time <= now() and expiry_time >= now()]]>
+		</if>
+		<if test="type == 2">
+			<![CDATA[ and expiry_time < now()]]>
+		</if>
+		<if test="homeRecommended != null and homeRecommended != -1">
+			and cd.home_recommended = #{homeRecommended}
+		</if>
+		<if test="commodityName != null">
+			and c.name like '%${commodityName}%'
+		</if>
+		) tmp
+		<if test="sort!=null and sort!=''">
+			order by "${sort}"
+			<if test="order!=null and order!=''">
+				${order}
+			</if>
+		</if>
+	</select>
+
+	<update id="update"
+		parameterType="com.cms.core.commerce.commodity.domain.CommodityDiscountDto">
+		update commodity_discount
+		set
+		<if test="status != null and status !=0">
+			status = #{status},
+		</if>
+		<if test="homeRecommended != null and homeRecommended != -1">
+			home_recommended = #{homeRecommended},
+		</if>
+		<if test="price != null and price != -1">
+			price = #{price},
+		</if>
+		<if test="sortId != null and sortId != -1">
+			sort_id = #{sortId},
+		</if>
+		<if test="singleSold != null and singleSold != -1">
+			sigle_sold = #{singleSold},
+		</if>
+		<if test="startTime != null">
+			start_time = #{startTime},
+		</if>
+		<if test="expiryTime != null">
+			expiry_time = #{expiryTime},
+		</if>
+		id = id
+		where id = #{id}
+	</update>
+
+	<update id="updateStock"
+		parameterType="com.cms.core.commerce.commodity.domain.CommodityDiscountDto">
+		update commodity_discount
+		set
+		stock=#{stock}
+		where id = #{id}
+	</update>
+
+	<select id="findById" parameterType="long" resultMap="rs_commodityDiscount">
+		select
+		id,
+		commodity_id,
+		price,
+		stock,
+		sale,
+		sort_id,
+		home_recommended,
+		sigle_sold,
+		creation_time,
+		start_time,
+		expiry_time,
+		status
+		from commodity_discount
+		where id = #{id}
+	</select>
+
+	<insert id="insert"
+		parameterType="com.cms.core.commerce.commodity.domain.CommodityDiscountDto"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+		eshop.commodity_discount(
+		commodity_id, price, stock, sort_id,
+		home_recommended, sigle_sold, creation_time, start_time, expiry_time,
+		status)
+		VALUES (#{commodityId}, #{price}, #{stock}, #{sortId},
+		#{homeRecommended}, #{singleSold}, #{creationTime}, #{startTime},
+		#{expiryTime}, #{status})
+	</insert>
+</mapper>

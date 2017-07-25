@@ -1,0 +1,77 @@
+
+<div class="editorContainer">
+	   <div class="btn-toolbar" id="${eId}_toolbar" data-role="editor-toolbar" data-target="#${eId}">
+	     <div class="btn-group">
+	         <a class="btn dropdown-toggle" data-toggle="dropdown"  title="字体"><i class="icon-font"></i><b class="caret"></b></a>
+	         <ul class="dropdown-menu">
+	         	<li><a data-edit="fontName Serif" style="font-family:'Serif'">Serif</a></li>
+	         	<li><a data-edit="fontName Sans" style="font-family:'Sans'">Sans</a></li>
+	         	<li><a data-edit="fontName Arial" style="font-family:'Arial'">Arial</a></li>
+	         	<li><a data-edit="fontName Arial Black" style="font-family:'Arial Black'">Arial Black</a></li>
+	         	<li><a data-edit="fontName Courier" style="font-family:'Courier'">Courier</a></li>
+	         	<li><a data-edit="fontName Courier New" style="font-family:'Courier New'">Courier New</a></li>
+	         	<li><a data-edit="fontName Comic Sans MS" style="font-family:'Comic Sans MS'">Comic Sans MS</a></li>
+	         	<li><a data-edit="fontName Helvetica" style="font-family:'Helvetica'">Helvetica</a></li>
+	         	<li><a data-edit="fontName Impact" style="font-family:'Impact'">Impact</a></li>
+	         	<li><a data-edit="fontName Lucida Grande" style="font-family:'Lucida Grande'">Lucida Grande</a></li>
+	         	<li><a data-edit="fontName Lucida Sans" style="font-family:'Lucida Sans'">Lucida Sans</a></li>
+	         	<li><a data-edit="fontName Tahoma" style="font-family:'Tahoma'">Tahoma</a></li>
+	         	<li><a data-edit="fontName Times" style="font-family:'Times'">Times</a></li>
+	         	<li><a data-edit="fontName Times New Roman" style="font-family:'Times New Roman'">Times New Roman</a></li>
+	         	<li><a data-edit="fontName Verdana" style="font-family:'Verdana'">Verdana</a></li>
+	         </ul>
+	     </div>
+	     <div class="btn-group">
+	         <a class="btn dropdown-toggle" data-toggle="dropdown" title="字体大小"><i class="icon-text-height"></i>&nbsp;<b class="caret"></b></a>
+	         <ul class="dropdown-menu">
+	         <li><a data-edit="fontSize 5"><font size="5">24</font></a></li>
+	         <li><a data-edit="fontSize 3"><font size="3">18</font></a></li>
+	         <li><a data-edit="fontSize 1"><font size="1">12</font></a></li>
+	         </ul>
+	     </div>
+	     <div class="btn-group">
+	     	<a class="btn" data-type="color"  title="字体颜色"><i style="color:#000000;" class="icon-font"></i></a>
+	        <input value="#000000" style="display: none;" type="color" data-edit="ForeColor"/>
+	     </div>
+	     
+	     
+	     <div class="btn-group">
+	       <a class="btn" data-edit="bold" title="加粗 (Ctrl/Cmd+B)"><i class="icon-bold"></i></a>
+	       <a class="btn" data-edit="italic" title="斜体 (Ctrl/Cmd+I)"><i class="icon-italic"></i></a>
+	       <a class="btn" data-edit="strikethrough" title="删除线"><i class="icon-strikethrough"></i></a>
+	       <a class="btn" data-edit="underline" title="下划线 (Ctrl/Cmd+U)"><i class="icon-underline"></i></a>
+	     </div>
+	     <div class="btn-group">
+	       <a class="btn" data-edit="insertunorderedlist" title="项目符号"><i class="icon-list-ul"></i></a>
+	       <a class="btn" data-edit="insertorderedlist" title="数字符号"><i class="icon-list-ol"></i></a>
+	       <a class="btn" data-edit="outdent" title="减少缩进(Shift+Tab)"><i class="icon-indent-left"></i></a>
+	       <a class="btn" data-edit="indent" title="缩进 (Tab)"><i class="icon-indent-right"></i></a>
+	     </div>
+	     <div class="btn-group">
+	       <a class="btn" data-edit="justifyleft" title="左对齐 (Ctrl/Cmd+L)"><i class="icon-align-left"></i></a>
+	       <a class="btn" data-edit="justifycenter" title="居中 (Ctrl/Cmd+E)"><i class="icon-align-center"></i></a>
+	       <a class="btn" data-edit="justifyright" title="右对齐 (Ctrl/Cmd+R)"><i class="icon-align-right"></i></a>
+	       <a class="btn" data-edit="justifyfull" title="对齐 (Ctrl/Cmd+J)"><i class="icon-align-justify"></i></a>
+	     </div>
+	     <div class="btn-group">
+		  <a class="btn dropdown-toggle" data-toggle="dropdown" title="超链接"><i class="icon-link"></i></a>
+		    <div class="dropdown-menu input-append">
+			    <input class="span2" placeholder="URL" type="text" data-edit="createLink"/>
+			    <button class="btn" type="button">添加</button>
+	       </div>
+	       <a class="btn" data-edit="unlink" title="删除超链接"><i class="icon-cut"></i></a>
+	     </div>
+	     
+	     <div class="btn-group">
+	       <a class="btn"  id="${eId}_pictureBtn"><i class="icon-picture"></i></a>
+	       <input type="file" title="插入图片（或者拖放）" data-role="magic-overlay" data-target="#${eId}_pictureBtn"  data-edit="insertImage" />
+	     </div>
+	     <div class="btn-group">
+	       <a class="btn" data-edit="undo" title="撤消 (Ctrl/Cmd+Z)"><i class="icon-undo"></i></a>
+	       <a class="btn" data-edit="redo" title="重做 (Ctrl/Cmd+Y)"><i class="icon-repeat"></i></a>
+	     </div>
+	     <!-- <input type="text" data-edit="inserttext" id="voiceBtn" x-webkit-speech=""> -->
+	   </div>
+	
+	   <div class="editor" style="font-size: 24px;"id="${eId}">${eValue}</div>
+</div>

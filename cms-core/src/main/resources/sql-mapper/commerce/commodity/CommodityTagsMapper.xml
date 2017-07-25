@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.core.commerce.commodity.dao.CommodityTagsDao">
+	<resultMap type="com.cms.core.commerce.commodity.domain.CommodityTagsDto" id="rs_commodityTags">
+		<result property="commodityId" column="commodityId" javaType="long" jdbcType="INTEGER" />
+		<result property="name" column="name" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="nameEn" column="nameEn" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+</mapper>

@@ -1,0 +1,218 @@
+@CHARSET "UTF-8";
+
+/**ZQY  update**/
+
+/**公共样式**/
+.w-150{
+	width: 150px!important;
+}
+.w-100{
+	width: 100px!important;
+}
+.w-240{
+	width: 240px!important;
+}
+
+select {
+	padding-bottom: 5px!important;
+}
+
+/**注释掉和bootstarp冲突**/
+/* .breadcrumb {
+    background-color: #ffffff;
+    padding: 0;
+    margin-bottom: 0;
+}
+
+.breadcrumb > li a {
+    color: inherit;
+}
+
+.breadcrumb > .active {
+    color: inherit;
+} */
+
+.help-block{
+	margin-top: 0px!important;	
+}
+
+/**文件选择空间样式修改，防止和表单校验插件冲突**/
+.input-group-btn {
+	vertical-align:top;
+}
+
+/**路径导航框体样式**/
+.breadcrumbBar{
+	height:30px;
+	z-index: -5;
+	margin-top: -20px;
+}
+
+/**修改框体头部高度，便于放下按钮**/
+
+.ibox-title{
+	padding: 6px 15px 3px 15px;
+}
+.ibox-title h5{
+	margin-top: 10px;  
+}
+
+/**新增查看图片样式**/
+.showImg {
+	text-align:center;
+}
+.showImg img{
+	height:300px;
+	width:300px;
+	display: block;
+}
+
+/**新增page页面搜索表单样式**/
+.searchBar{
+	
+}
+.searchBar label,
+.searchBar input,
+.searchBar select{
+	display: inline!important;
+}
+/**修改查看详情页面样式**/
+.detailFrom{
+	
+}
+.detailFrom .form-group{
+	font-size:14px;
+	margin-bottom: 20px;
+}
+.detailFrom .form-group>.control-label{
+	padding-top: 0px;
+}
+
+/**html编辑框样式**/
+
+.editorContainer {
+	background-color: white;
+	border: 1px solid rgb(204, 204, 204); 
+	padding: 4px; 
+	box-sizing: content-box; 
+}
+.editorContainer .editor {
+	color:#000000;
+	max-height: 300px;
+	height: 300px;
+	background-color: white;
+	border-collapse: separate; 
+	border: 1px solid rgb(204, 204, 204); 
+	padding: 4px; 
+	box-sizing: content-box; 
+	-webkit-box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset; 
+	box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
+	border-top-right-radius: 3px; border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px; border-top-left-radius: 3px;
+	overflow: scroll;
+	overflow-x:hidden;
+	outline: none;
+}
+
+/* #voiceBtn {
+  width: 20px;
+  color: transparent;
+  background-color: transparent;
+  transform: scale(2.0, 2.0);
+  -webkit-transform: scale(2.0, 2.0);
+  -moz-transform: scale(2.0, 2.0);
+  border: transparent;
+  cursor: pointer;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+} */
+
+div[data-role="editor-toolbar"] {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.thumbnail>.thumbnailClose{
+	position: absolute;
+	top:0px;
+	font-size: 16px;
+	z-index: 10px;
+	cursor:pointer;
+}
+
+/**菜单颜色**/
+#sidebarMenu {
+	background:#3a3f51!important;
+}
+#sidebarMenu .nav-header{
+	background:#3a3f51!important;
+}
+
+#sidebarMenu .nav-label{
+	color: #FFFFFF;
+	font-weight:400;
+	font-family:  Microsoft YaHei;
+}
+#sidebarMenu .ng-scope{
+	color: #FFFFFF;
+	font-weight:400;
+	font-family:  Microsoft YaHei;
+}
+#sidebarMenu .active{
+	background:#23b7e5;
+	border-left:4px solid #23b7e5;
+}
+#sidebarMenu .nav > li > a:hover,
+#sidebarMenu .nav > li > a:focus {
+    background-color: #23b7e5;
+    color: #FFFFFF;
+}
+/**
+ * 菜单图片
+ */
+.menuIcon{
+	padding-top:4px;
+	margin-left:5px;
+	margin-right:5px;
+	display:inline-block;
+	width: 14px;
+	height: 14px;
+	vertical-align: middle;
+}
+.menu-bk{
+	background: url(../img/king88/bk.png) no-repeat center center;
+}
+.menu-dd{
+	background: url(../img/king88/dd.png) no-repeat center center;
+}
+.menu-pl{
+	background: url(../img/king88/pl.png) no-repeat center center;
+}
+.menu-sp{
+	background: url(../img/king88/sp.png) no-repeat center center;
+}
+.menu-sy{
+	background: url(../img/king88/sy.png) no-repeat center center;
+}
+.menu-tg{
+	background: url(../img/king88/tg.png) no-repeat center center;
+}
+.menu-yh{
+	background: url(../img/king88/yh.png) no-repeat center center;
+}
+.menu-pp{
+	background: url(../img/king88/pp.png) no-repeat center center;
+}
+.menu-shiy{
+	background: url(../img/king88/shiy.png) no-repeat center center;
+}
+.menu-user{
+	background: url(../img/king88/user.png) no-repeat center center;
+}
+.menu-st{
+	background: url(../img/king88/st.png) no-repeat center center;
+}
+.J_menuItem{
+	font-size: 14px;
+}

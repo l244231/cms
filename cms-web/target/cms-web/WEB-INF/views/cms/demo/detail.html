@@ -1,0 +1,180 @@
+<%
+<% layout("/resources/template/sub/grid.html",{functionPath:'/resources/js/cms/commerce/benefit/detail'}){ %>
+%>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="breadcrumbBar">
+		<ol class="breadcrumb">
+			<li><a href="${basePath}/brand/page">每日视听管理</a></li>
+			<li class="active">添加每日视听</li>
+		</ol>
+	</div>
+	<form class="form-horizontal m-t" id="audiovisualForm">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox">
+					<div class="ibox-title">
+						<a href="${basePath}/audiovisual/page" type="button"
+							class="btn  btn-default " title="返回"
+							style="float: left; margin-right: 10px;"> 返回 </a>
+						<h5>查看品牌详情</h5>
+						<div class="ibox-tools">
+							<a type="button" class="btn   btn-primary "  href="javascript:void(0)">
+								禁止
+							</a>
+							<a type="button" class="btn   btn-primary "  href="javascript:void(0)">
+								推荐到首页
+							</a>
+							<a type="button" class="btn   btn-primary "  href="${basePath}/market/brand/edit?id=${result.id!''}">
+								编辑
+							</a>
+						</div>
+					</div>
+					<div class="ibox-content">
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="panel panel-default">
+									<div class="panel-heading">品牌logo</div>
+									<div class="panel-body">
+										<div class="showImg">
+											<a href="javascript:void(0)" class="thumbnail"> 
+											<img id="logoPr" style="width:200px;height:200px;" src="">
+											</a>
+											<h5>建议尺寸：200*200</h5>
+										</div>
+									</div>
+								</div>
+								<div class="panel panel-default">
+									<div class="panel-heading">大图片</div>
+									<div class="panel-body">
+										<div class="showImg">
+											<a href="javascript:void(0)" class="thumbnail"> 
+											<img id="bigimgPr" style="width:375px;height:110px;" src="">
+											</a>
+											<h5>建议尺寸：750*210</h5>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-8">
+								<div class="panel panel-default">
+									<div class="panel-heading">品牌信息</div>
+									<div class="panel-body">
+										<div class="form-group">
+											<label class="col-sm-3 control-label">品牌名称：</label>
+											<div class="col-sm-8">
+												某化妆品
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">所属组织/公司：</label>
+											<div class="col-sm-8">
+												xx公司
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label class="col-sm-3 control-label">排序：</label>
+											<div class="col-sm-8">
+												1
+											</div>
+										</div>
+										
+										
+										<div class="form-group">
+											<label class="col-sm-3 control-label">商铺POI：</label>
+											<div class="col-sm-8">
+												POI
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label class="col-sm-3 control-label">商铺地址：</label>
+											<div class="col-sm-8">
+												广州市xxx
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label class="col-sm-3 control-label">商铺楼层：</label>
+											<div class="col-sm-8">
+												F1
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label class="col-sm-3 control-label">是否开通线上商城：</label>
+											<div class="col-sm-8">
+												是
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label class="col-sm-3 control-label">是否推荐到首页：</label>
+											<div class="col-sm-8">
+												是
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label class="col-sm-3 control-label">人均消费：</label>
+											<div class="col-sm-8">
+												300
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label class="col-sm-3 control-label">品牌分类：</label>
+											<div class="col-sm-8">
+												餐饮美食
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label class="col-sm-3 control-label">营业时间：</label>
+											<div class="col-sm-8">
+												<div class="row m-b-md">
+													<div class="col-md-5">
+														2016-01-01
+													</div>
+													<div class="col-md-2" style="text-align: center;">-</div>
+													<div class="col-md-5" style="text-align: right;">
+														2016-01-01
+													</div>
+												</div>
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label class="col-sm-3 control-label">联系电话：</label>
+											<div class="col-sm-8">
+												13711235646
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label class="col-sm-3 control-label">商品展示图：</label>
+											<div class="col-sm-8">
+												<input type="file" id="showImgs" multiple="multiple" name="showImgs" >
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label class="col-sm-3 control-label">品牌介绍：</label>
+											<div class="col-sm-8">
+												<%include("/resources/template/lib/wysiwyg.html",{eId:"ppjs",eValue:"请输入品牌介绍"}){}%>
+											</div>
+										</div>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+</div>
+<%}%>

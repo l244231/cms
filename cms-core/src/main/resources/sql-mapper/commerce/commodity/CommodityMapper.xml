@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.core.commerce.commodity.dao.CommodityDao">
+	<resultMap type="com.cms.core.commerce.commodity.domain.CommodityDto"
+		id="rs_commodity">
+		<result property="id" column="id" javaType="long" jdbcType="INTEGER" />
+		<result property="categoryId" column="category_id" javaType="long"
+			jdbcType="INTEGER" />
+		<result property="name" column="name" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="shortName" column="short_name" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="engName" column="eng_name" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="specName" column="spec_name" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="specNameEn" column="spec_name_en" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="listIconId" column="list_icon_id" javaType="long"
+			jdbcType="INTEGER" />
+		<result property="sortId" column="sort_id" javaType="int"
+			jdbcType="INTEGER" />
+		<result property="storeId" column="store_id" javaType="long"
+			jdbcType="INTEGER" />
+		<result property="model" column="model" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="price" column="price" javaType="double"
+			jdbcType="NUMERIC" />
+		<result property="currentPrice" column="current_price"
+			javaType="double" jdbcType="NUMERIC" />
+		<result property="description" column="description" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="descriptionEn" column="description_en"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="distribution" column="distribution" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="distributionEn" column="distribution_en"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="purchaseNotes" column="purchase_notes"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="purchaseNotesEn" column="purchase_notes_en"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="stock" column="stock" javaType="int"
+			jdbcType="INTEGER" />
+		<result property="sale" column="sale" javaType="int" jdbcType="INTEGER" />
+		<result property="popularity" column="popularity" javaType="int"
+			jdbcType="INTEGER" />
+		<result property="creationTime" column="creation_time"
+			javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result property="lastModified" column="last_modified"
+			javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result property="status" column="status" javaType="short"
+			jdbcType="INTEGER" />
+	</resultMap>
+
+	<select id="findListByParams" parameterType="java.util.Map"
+		resultType="java.util.HashMap">
+		select * from (select t.id,
+		t.name,
+		t.sort_id as "sortId",
+		t.price,
+		t.current_price as
+		"currentPrice",
+		t.sale,
+		t.stock,
+		t.store_id as
+		"storeId",
+		cc.name as
+		"categoryName",
+		t.list_icon_id as "listIconId",
+		t.popularity "popularity"
+		from
+		commodity t
+		left join
+		commodity_category cc
+		on cc.id = t.category_id
+		<if test="isHot != null">
+			left join commodity_hot ch
+			on ch.status != 5
+			and
+			ch.commodity_id = t.id
+		</if>
+		where t.status !=5
+		<if test="isHot != null">
+			and ch.id is null
+		</if>
+		<if test="(status != null and status != '') or status == 0">
+			and t.status = #{status}
+		</if>
+		<if test="(storeId != null and storeId != '') or storeId == 0">
+			and t.store_id = #{storeId}
+		</if>
+		<if test="(categoryId != null and categoryId != '') or categoryId == 0">
+			and t.category_id = #{categoryId}
+		</if>
+		<if test="name!= null and name != ''">
+			and t.name like #{name}
+		</if>
+		order by t.last_modified desc
+		) tmp
+		<!-- order by t.sort_id desc -->
+		<if test="sort!=null and sort!=''">
+			order by "${sort}"
+			<if test="order!=null and order!=''">
+				${order}
+			</if>
+		</if>
+	</select>
+
+	<update id="updateCommodityStatus" parameterType="java.util.Map">
+		update
+		commodity set status = #{status}
+		where id = #{id}
+	</update>
+
+	<select id="findById" parameterType="long" resultMap="rs_commodity">
+		SELECT
+		id,
+		category_id,
+		name,
+		short_name,
+		short_name_en,
+		spec_name,
+		spec_name_en,
+		eng_name,
+		list_icon_id,
+		sort_id,
+		store_id,
+		model,
+		price,
+		current_price,
+		description,
+		distribution,
+		purchase_notes,
+		description_en,
+		distribution_en,
+		purchase_notes_en,
+		stock,
+		sale,
+		popularity,
+		creation_time,
+		last_modified,
+		status
+		FROM commodity where id = #{id};
+	</select>
+
+	<insert id="insert" parameterType="com.cms.core.commerce.commodity.domain.CommodityDto">
+		<selectKey resultType="java.lang.Long" order="AFTER"
+			keyProperty="id">
+			SELECT currval('commodity_id_seq') AS id
+		</selectKey>
+		insert into commodity(
+		category_id,
+		name,
+		short_name,
+		short_name_en,
+		spec_name,
+		spec_name_en,
+		eng_name,
+		list_icon_id,
+		sort_id,
+		store_id,
+		model,
+		price,
+		current_price,
+		description,
+		distribution,
+		purchase_notes,
+		description_en,
+		distribution_en,
+		purchase_notes_en,
+		creation_time,
+		last_modified,
+		stock,popularity,sale
+		) values (
+		#{categoryId},
+		#{name},
+		#{shortName},
+		#{shortNameEn},
+		#{specName},
+		#{specNameEn},
+		#{engName},
+		#{listIconId},
+		#{sortId},
+		#{storeId},
+		#{model},
+		#{price},
+		#{currentPrice},
+		#{description},
+		#{distribution},
+		#{purchaseNotes},
+		#{descriptionEn},
+		#{distributionEn},
+		#{purchaseNotesEn},
+		#{creationTime},
+		#{lastModified},
+		#{stock},#{popularity},#{sale}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.cms.core.commerce.commodity.domain.CommodityDto">
+		update commodity set
+		category_id=#{categoryId},
+		name=#{name},
+		short_name=#{shortName},
+		short_name_en=#{shortNameEn},
+		spec_name=#{specName},
+		spec_name_en=#{specNameEn},
+		eng_name=#{engName},
+		<if test="(listIconId!=null and listIconId!='') and listIconId!=0">
+			list_icon_id=#{listIconId},
+		</if>
+		sort_id=#{sortId},
+		store_id=#{storeId},
+		model=#{model},
+		price=#{price},
+		current_price=#{currentPrice},
+		description=#{description},
+		distribution=#{distribution},
+		purchase_notes=#{purchaseNotes},
+		description_en=#{descriptionEn},
+		distribution_en=#{distributionEn},
+		purchase_notes_en=#{purchaseNotesEn},
+		<if test="status!=null and status!=''">
+			status=#{status},
+		</if>
+		last_modified=#{lastModified}
+		where id=#{id}
+	</update>
+
+	<update id="updateStock" parameterType="com.cms.core.commerce.commodity.domain.CommodityDto">
+		update commodity
+		set
+		last_modified = #{lastModified},
+		stock = #{stock},
+		sale = #{sale},
+		popularity = #{popularity}
+		where id = #{id}
+	</update>
+
+	<select id="findCommodityIsHadUse" parameterType="java.util.Map"
+		resultType="java.util.HashMap">
+		select
+		count(b.id) "group",
+		count(c.id) "hot",
+		count(d.id)
+		"trial",
+		count(e.id) "discount"
+		from
+		commodity a
+		left join commodity_group
+		b on
+		a.id=b.commodity_id and b.status!=5
+		left join commodity_hot c on
+		a.id=c.commodity_id and c.status!=5
+		left join commodity_trial d on
+		a.id=d.commodity_id and d.status!=5
+		left join commodity_discount e on
+		a.id=e.commodity_id and e.status!=5
+		where a.id=#{id} and a.status!=5
+		group by a.id
+	</select>
+
+</mapper>

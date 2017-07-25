@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.core.commerce.other.dao.ShoppingCartDao">
+	<resultMap type="com.cms.core.commerce.transaction.domain.ShoppingCartDto" id="rs_shoppingCart">
+		<result property="userId" column="userId" javaType="long" jdbcType="INTEGER" />
+		<result property="commondityId" column="commondityId" javaType="long" jdbcType="INTEGER" />
+		<result property="color" column="color" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="colorId" column="colorId" javaType="long" jdbcType="INTEGER" />
+		<result property="specId" column="specId" javaType="long" jdbcType="INTEGER" />
+		<result property="spec" column="spec" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="qty" column="qty" javaType="long" jdbcType="INTEGER" />
+		<result property="price" column="price" javaType="double" jdbcType="NUMERIC" />
+		<result property="priceActual" column="priceActual" javaType="double" jdbcType="NUMERIC" />
+		<result property="creationTime" column="creationTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result property="status" column="status" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="type" column="type" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="relativeId" column="relativeId" javaType="java.lang.String" jdbcType="VARCHAR" />
+	</resultMap>
+</mapper>

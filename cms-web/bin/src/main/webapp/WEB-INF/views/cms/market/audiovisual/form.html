@@ -1,0 +1,101 @@
+<% layout("/resources/template/sub/grid.html",{functionPath:'/resources/js/cms/market/audiovisual/form'}){ %>
+<div class="breadcrumbBar">
+	<ol class="breadcrumb">
+	  <li ><a href="${basePath}/audiovisual/page">每日视听管理</a></li>
+	  <li class="active">添加每日视听管理</li>
+	</ol>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+	<form class="form-horizontal m-t" id="audiovisualForm">
+    	<div class="row">
+            <div class="col-sm-12">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <a href="${basePath}/audiovisual/page" type="button" class="btn  btn-default " title="返回" style="float: left; margin-right: 10px;">
+                         	返回
+	                    </a>
+	                    <h5>添加每日视听
+	                        
+	                    </h5>
+	                    <div class="ibox-tools">
+	                        <button type="submit" class="btn  btn-primary addBut" title="保存">
+	                        	保存
+	                        </button>
+	                    </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                    	视听封面
+                                    </div>
+                                    <div class="panel-body">
+                                    	<div class="showImg">
+	                                    	<a href="#" class="thumbnail">
+									          <img data-src="" id="ImgPr" style="height: 300px; width: 300px; display: block;" 
+									          src=""
+									          onerror="this.src='${basePath}/resources/img/webuploader.png'" 
+									          data-holder-rendered="true">
+									        </a>
+									       	<h5> 建议尺寸：600*600</h5>
+                                    	</div>
+                                    </div>
+                                    <div style="padding: 15px;">
+                                    	<input type="file" id="myfile" multiple="multiple">
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                      	视听信息
+                                    </div>
+                                    <div class="panel-body">
+			                            <div class="form-group">
+			                                <label class="col-sm-3 control-label">标题：</label>
+			                                <div class="col-sm-8">
+			                                    <input id="title" name="title" placeholder="请输入标题" type="text" class="form-control" >
+			                                </div>
+			                            </div>
+			                            
+			                            <div class="form-group">
+			                                <label class="col-sm-3 control-label">排序：</label>
+			                                <div class="col-sm-8">
+			                                    <input id="seq" type="text"  placeholder="请输入排序" class="form-control" name="seq">
+			                                </div>
+			                            </div>
+			                            <div class="form-group">
+			                                <label class="col-sm-3 control-label">类型：</label>
+			                                <div class="col-sm-8">
+			                                	<select id="type" class="form-control" placeholder="请选择类型" name="type">
+			                                        <option>选项 1</option>
+			                                        <option>选项 2</option>
+			                                    </select>
+			                                </div>
+			                            </div>
+			                            <div class="form-group">
+			                                <label class="col-sm-3 control-label">文件：</label>
+			                                <div class="col-sm-8">
+			                                    <input type="file" name="uploadFile" id="uploadFile" placeholder="请选择文件" multiple="multiple">
+			                                </div>
+			                            </div>
+			                            <div class="form-group">
+			                                <label class="col-sm-3 control-label">介绍：</label>
+			                                <div class="col-sm-8">
+			                                    <textarea id="ccomment" name="comment" class="form-control"  placeholder="请输入介绍" required="" aria-required="true" style="height:218px;"></textarea>
+			                                </div>
+			                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    
+</div>
+<%}%>

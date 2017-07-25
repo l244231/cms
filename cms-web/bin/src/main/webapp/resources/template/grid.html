@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<%include("/resources/template/header.html"){}%>
+<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
+	<div id="wrapper" style="overflow:hidden">
+		<%include("/resources/template/sidebarMenu.html"){}%>
+		<div id="page-wrapper" class="gray-bg dashbard-1">
+			<%include("/resources/template/topMenu.html"){}%>
+			<!-- <div class="row J_mainContent" id="content-main">
+		        <iframe id="J_iframe" width="100%" height="100%" src="index_v1.html?v=4.0" frameborder="0" data-id="index_v1.html" seamless allowfullscreen></iframe>
+		    </div> -->
+		    ${layoutContent}
+		</div>
+	</div>
+	<%include("/resources/template/footer.html"){}%>
+	<%include("/resources/template/plugins.html"){}%>
+</body>
+</html>

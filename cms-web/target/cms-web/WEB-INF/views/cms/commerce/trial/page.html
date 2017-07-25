@@ -1,0 +1,57 @@
+<%
+layout("/resources/template/sub/grid.html",{functionPath:'/resources/js/cms/commerce/trial/page'}){
+%>
+<div class="wrapper wrapper-content animated fadeInUp">
+	<!-- Panel Other -->
+	<div class=" float-e-margins">
+
+		<div class="row row-lg">
+			<div class="col-sm-12">
+				<!-- Example Events -->
+				<div class="tabs-container">
+					<ul class="nav nav-tabs">
+						<li class="active"><a data-toggle="tab" href="#tab-1"
+							aria-expanded="true">热门试用列表</a></li>
+					</ul>
+					<div class="tab-content">
+						<div id="tab-1" class="tab-pane active">
+							<div class="panel-body">
+								<div class="columns hidden-xs" style="margin-top:0px;" id="trialListToolbar" role="group">
+									<form class="form-horizontal searchBar" id="trialListForm">
+										<label class="control-label">关键字：</label> 
+										<input id="keyWord"
+											type="text" placeholder="请输入关键词" class="form-control w-150"
+											name="keyWord" /> <label class="control-label">试用类型：</label> 
+										<select
+											id="type" class=" form-control w-100" placeholder="请选择试用类型"
+											name="type">
+											<option value="-1">全部</option>
+											<option value="1">免邮试用</option>
+											<option value="2">付邮试用</option>
+										</select> 
+										<label class="control-label">状态：</label> 
+										<select id="status"
+											class="  form-control w-100" placeholder="请选择状态" name="status">
+											<option value="-1">全部</option>
+											<option value="1">未开始</option>
+											<option value="2">正在进行</option>
+											<option value="3">已过期</option>
+										</select>
+									</form>
+								</div>
+								<table id="trialListTable" data-mobile-responsive="true">
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- End Example Events -->
+			</div>
+		</div>
+	</div>
+	<!-- End Panel Other -->
+</div>
+		<script>
+			var isBack = '${isBack}';
+		</script>
+<%}%>

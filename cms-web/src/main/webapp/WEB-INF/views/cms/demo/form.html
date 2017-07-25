@@ -1,0 +1,232 @@
+<% layout("/resources/template/sub/grid.html",{functionPath:'/resources/js/cms/commerce/benefit/form'}){ %>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="breadcrumbBar">
+		<ol class="breadcrumb">
+			<li><a href="${basePath}/commerce/benefit/page">限时优惠管理</a></li>
+			<li class="active">添加限时优惠</li>
+		</ol>
+	</div>
+	<form class="form-horizontal m-t" id="benefitFormForm">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox">
+					<div class="ibox-title">
+						<a href="${basePath}/commerce/benefit/page" type="button"
+							class="btn  btn-default " 
+							style="float: left; margin-right: 10px;"> 返回 </a>
+						<h5>添加限时优惠</h5>
+						<div class="ibox-tools">
+							<button type="submit" class="btn   btn-primary addBut" >
+								保存</button>
+						</div>
+					</div>
+					<div class="ibox-content">
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="panel panel-default">
+									<div class="panel-heading">图片</div>
+									<div class="panel-body">
+										<div class="showImg">
+											<a href="javascript:void(0)" class="thumbnail"> 
+											<img 
+												id="imgPr"
+												style="width:300px;height:220px;">
+											</a>
+											<h5>建议尺寸：300*220</h5>
+										</div>
+									</div>
+									<div style="padding: 15px;">
+										<input type="file" id="imgFile" name="imgFile" >
+									</div>
+
+								</div>
+							</div>
+							<div class="col-sm-8">
+								<div class="panel panel-default">
+									<div class="panel-heading">添加商品</div>
+									<div class="panel-body">
+										<div class="form-group">
+											<div class="col-sm-6">
+												<input id="newCommodity" type="radio" checked="checked"
+													class="form-control i-checks" name="addBenefit"
+													value="1"><label for="newCommodity">新建商品</label>
+											</div>
+											<div class="col-sm-6">
+												<input id="existingCommodity" type="radio"
+													class="form-control i-checks" name="addBenefit"
+													value="2"><label for="existingCommodity">从已有商品中选择</label>
+												<a href="#"
+													type="button" class="btn  btn-default"
+													style="margin-right: 10px;">选择</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="panel panel-default">
+									<div class="panel-heading">团购信息</div>
+									<div class="panel-body">
+										<div class="form-group">
+											<label class="col-sm-3 control-label">团购名：</label>
+											<div class="col-sm-8">
+												<input id="title" type="text" placeholder=""
+													class="form-control" name="title">
+											</div>
+										</div>
+										<!-- 团购长名称即为商品的名称(商品名称分为名称和短名称) -->
+										<div class="form-group">
+											<label class="col-sm-3 control-label">团购长名称：</label>
+											<div class="col-sm-8">
+												<input id="name" type="text" placeholder=""
+													class="form-control" name="name">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">排序：</label>
+											<div class="col-sm-8">
+												<input id="sortId" type="text" placeholder=""
+													class="form-control" name="sortId">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">状态：</label>
+											<div class="col-sm-8">
+												<select id="status" class=" form-control" name="status">
+													<option value="1" selected="selected">上架</option>
+													<option value="2">下架</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">所属店铺：</label>
+											<div class="col-sm-8">
+												<select id="storeId" class="  form-control" name="storeId">
+													<option value="1" selected="selected">店铺1</option>
+													<option value="2">店铺1</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">优惠商品数量：</label>
+											<div class="col-sm-8">
+												<input id="优惠商品数量" type="text" placeholder=""
+													class="form-control" name="优惠商品数量">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">是否单卖：</label>
+											<div class="col-sm-8">
+												<select id="是否单卖" class=" form-control" name="是否单卖">
+													<option value="1" selected="selected">是</option>
+													<option value="2">否</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">推荐到首页：</label>
+											<div class="col-sm-8">
+												<select id="homeRecommended" class="  form-control" name="homeRecommended">
+													<option value="1" selected="selected">是</option>
+													<option value="0">否</option>
+												</select>
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label class="col-sm-3 control-label">是否支持单卖：</label>
+											<div class="col-sm-8">
+												<select id="singleSold" class=" form-control" name="singleSold">
+													<option value="1" selected="selected">是</option>
+													<option value="0">否</option>
+												</select>
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label class="col-sm-3 control-label">成团人数：</label>
+											<div class="col-sm-8">
+												<input id="numberPeople" type="text" placeholder=""
+													class="form-control" name="numberPeople">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">有效期：</label>
+											<div class="col-sm-8">
+												<div class="row m-b-md">
+													<div class="col-md-5">
+														<input id="startTime" type="text" placeholder=""
+															class="laydate-icon form-control layer-date " name="startTime">
+													</div>
+													<div class="col-md-2" style="text-align: center;">-</div>
+													<div class="col-md-5" style="text-align: right;">
+														<input id="expiryTime" type="text" placeholder=""
+															class="laydate-icon form-control layer-date " name="expiryTime">
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">商品图片：</label>
+											<div class="col-sm-8">
+												<!-- 用于图片展示 -->
+												<div id="showImgDiv">
+													
+												</div>
+												<!-- 图片选择按钮 -->
+												<div class="col-sm-4">
+													<a class="thumbnail" id="addCommodity" title="按住shift键进行多选"> 
+														<img style="width:100px;height:100px;" data-src="" src="${basePath}/resources/img/webuploader.png"
+															data-holder-rendered="true">
+													</a>
+												</div>
+												<!-- 隐藏的文件域：目前单独用个div包含，样式有冲突 -->
+												<div class="col-sm-12" style="display: none;">
+													<input type="file" id="imgMultipleFile" multiple="multiple" name="imgMultipleFile" >
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">商品说明：</label>
+											<div class="col-sm-8">
+												<%include("/resources/template/lib/wysiwyg.html",{eId:"description",eValue:"请输入商品说明"}){}%>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">购买须知：</label>
+											<div class="col-sm-8">
+												<%include("/resources/template/lib/wysiwyg.html",{eId:"purchaseNotes",eValue:"请输入购买须知"}){}%>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="panel panel-default">
+									<div class="panel-heading">价格</div>
+									<div class="panel-body">
+										<div class="form-group">
+											<label class="col-sm-3 control-label">团购价格：</label>
+											<div class="col-sm-8">
+												<input id="price" type="text" placeholder="请输入团购价格"
+													class="form-control" name="currentPrice">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">原价：</label>
+											<div class="col-sm-8">
+												<input id="current_price" type="text" placeholder="请输入原价"
+													class="form-control" name="price">
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<%include("/resources/template/lib/commodityEdit.html",{}){}%>
+							
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<%}%>

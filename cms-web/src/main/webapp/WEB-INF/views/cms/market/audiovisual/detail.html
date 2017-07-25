@@ -1,0 +1,127 @@
+<%
+layout("/resources/template/sub/grid.html",{functionPath:'/resources/js/cms/market/audiovisual/detail'}){
+%>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="breadcrumbBar">
+		<ol class="breadcrumb">
+			<li><a href="${basePath}/market/audiovisual/page">每日视听管理</a></li>
+			<li class="active">查看每日视听</li>
+		</ol>
+	</div>
+	<form class="form-horizontal m-t  detailFrom">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox">
+					<div class="ibox-title">
+						<a href="${basePath}/market/audiovisual/page?isBack=true" type="button"
+							class="btn  btn-default " title="返回"
+							style="float: left; margin-right: 10px;"> 返回 </a>
+						<h5>查看每日视听</h5>
+						<div class="ibox-tools">
+							<a type="button" id="disableBtn" data-status='<%if(result.status==1){%>0<%}else if(result.status==0){%>1<%}%>' class="btn  btn-primary"  >
+								<%if(result.status==1){
+								%>禁用<%
+								}else if(result.status==0){
+								%>启用<%
+								}%>
+							</a>
+							<a type="button" id="recomBtn" data-ishome='<%if(result.isHome==1){%>0<%}else{%>1<%}%>' class="btn   btn-primary"  >
+								<%if(result.isHome==1){%>取消推荐到首页<%}else{%>推荐到首页<%}%>
+							</a>
+							<a type="button" class="btn   btn-primary "  href="${basePath}/market/audiovisual/edit?id=${result.id!''}">
+								编辑
+							</a>
+						</div>
+					</div>
+					<div class="ibox-content">
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="panel panel-default">
+									<div class="panel-heading">视听封面</div>
+									<div class="panel-body">
+										<div>
+											<% 
+												if(result.fileType=="mp3"){
+											%>
+												<video webkit-playsinline id="videoMedia" style="height:300px!important;" controls="controls" poster="${basePath}/market/ncpImageInfo/getFileById?id=${result.image!}" preload>
+													<source src="${basePath}/market/ncpFileInfo/getFileById?id=${result.fileId!}" type='audio/mp3'>
+													<p>播放器不支持Video播放</p>
+												</video>
+											<%
+											}else{
+											%>
+												<video webkit-playsinline id="videoMedia" style="height:300px!important;" controls="controls" poster="${basePath}/market/ncpImageInfo/getFileById?id=${result.image!}" preload>
+													<source src="${basePath}/market/ncpFileInfo/getFileById?id=${result.fileId!}" type='video/mp4'>
+													<p>播放器不支持Video播放</p>
+												</video>
+											<%
+											}%>
+										</div>
+									</div>
+
+								</div>
+							</div>
+							<div class="col-sm-8">
+								<div class="panel panel-default">
+									<div class="panel-heading">视听信息</div>
+									<div class="panel-body">
+										<div class="form-group">
+											<label class="col-sm-3 control-label">标题：</label>
+											<div class="col-sm-8">
+													${result.title!}
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">介绍：</label>
+											<div class="col-sm-8">
+													${result.content!}
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">排序：</label>
+											<div class="col-sm-8">
+												${result.sort!}
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">类型：</label>
+											<div class="col-sm-8">
+												${result.fileType!}
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">状态：</label>
+											<div class="col-sm-8" id="status">
+												<%
+													if(result.status==0){
+												%>
+													禁用
+												<%
+												}else{
+												%>
+													启用
+												<% 
+												}%>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">文件名：</label>
+											<div class="col-sm-8">
+												${result.fileName!""}
+												 
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<input type="hidden" id="id" value="${result.id!''}">
+	</form>
+
+</div>
+<%}%>

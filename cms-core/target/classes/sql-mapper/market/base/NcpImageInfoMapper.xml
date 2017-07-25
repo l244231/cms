@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.core.market.base.dao.NcpImageInfoDao">
+	 <resultMap type="com.cms.core.market.base.domain.NcpImageInfoDto" id="rs_ncpImageInfo">
+	 		<result property="id" column="ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+	 		<result property="width" column="WIDTH" javaType="int" jdbcType="INTEGER" />
+	 		<result property="height" column="HEIGHT" javaType="int" jdbcType="INTEGER" />
+	 		<result property="name" column="NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+	 		<result property="path" column="PATH" javaType="java.lang.String" jdbcType="VARCHAR" />
+	 		<result property="suffix" column="SUFFIX" javaType="java.lang.String" jdbcType="VARCHAR" />
+	 		<result property="status" column="STATUS" javaType="java.lang.String" jdbcType="VARCHAR" />
+	 		<result property="createDate" column="CREATE_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+	 		<result property="updateDate" column="UPDATE_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+	 </resultMap>
+	 
+	 <insert id="insert" parameterType="com.cms.core.market.base.domain.NcpImageInfoDto">
+	 	insert NCP_IMAGE_INFO(ID,WIDTH,HEIGHT,NAME,PATH,SUFFIX,STAUS,CREATE_DATE,UPDATE_DATE)
+	 	values(#{id},#{width},#{height},#{name},#{path},#{suffix},#{status},getdate(),getdate())
+	 </insert>
+	 
+	 <select id="findById" parameterType="java.lang.String" resultMap="rs_ncpImageInfo">
+	 	select ID,NAME,PATH,HEIGHT,WIDTH,SUFFIX,STAUS,CREATE_DATE,UPDATE_DATE from NCP_IMAGE_INFO where ID = #{id}
+	 
+	 </select>
+</mapper>

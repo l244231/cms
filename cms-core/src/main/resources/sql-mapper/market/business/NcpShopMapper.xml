@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.core.market.business.dao.NcpShopDao">
+	<resultMap type="com.cms.core.market.business.domain.NcpShopDto"
+		id="rs_ncpShop">
+		<result property="id" column="ID" javaType="long" jdbcType="INTEGER" />
+		<result property="buildingId" column="BUILDING_ID" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="buildingName" column="BUILDING_NAME"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="floorId" column="FLOOR_ID" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="shopLogo" column="SHOP_LOGO" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="imageId" column="IMAGE_ID" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="name" column="NAME" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="poiId" column="POI_ID" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="shopName" column="SHOP_NAME" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="shopType" column="SHOP_TYPE" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="roomId" column="ROOM_ID" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="shopHours" column="SHOP_HOURS" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="tel" column="TEL" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="shopInfo" column="SHOP_INFO" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="cpc" column="CPC" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="belongTo" column="BELONG_TO" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="distance" column="DISTANCE" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="add" column="ADD" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="createDate" column="CREATE_DATE" javaType="java.util.Date"
+			jdbcType="TIMESTAMP" />
+		<result property="updateDate" column="UPDATE_DATE" javaType="java.util.Date"
+			jdbcType="TIMESTAMP" />
+		<result property="area" column="AREA" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="floorName" column="FLOOR_NAME" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="shopNameEn" column="SHOP_NAME_EN" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="shopNameTc" column="SHOP_NAME_TC" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="collectionNum" column="COLLECTION_NUM"
+			javaType="int" jdbcType="INTEGER" />
+		<result property="praiseNum" column="PRAISE_NUM" javaType="int"
+			jdbcType="INTEGER" />
+		<result property="isTakeNumber" column="IS_TAKE_NUMBER"
+			javaType="int" jdbcType="INTEGER" />
+		<result property="sort" column="SORT" javaType="int" jdbcType="INTEGER" />
+		<result property="isVirtual" column="IS_VIRTUAL" javaType="int"
+			jdbcType="INTEGER" />
+		<result property="physicalStore" column="PHYSICAL_STORE"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="projectId" column="PROJECT_ID" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="propertyTag" column="PROPERTY_TAG" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="bannerImage" column="BANNER_IMAGE" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="status" column="STATUS" javaType="short"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="findById" parameterType="long" resultMap="rs_ncpShop">
+		select s.ID
+		,s.BUILDING_ID
+		,s.BUILDING_NAME
+		,s.FLOOR_ID
+		,s.SHOP_LOGO
+		,s.IMAGE_ID
+		,s.NAME
+		,s.POI_ID
+		,s.SHOP_NAME
+		,s.SHOP_TYPE
+		,s.ROOM_ID
+		,s.SHOP_HOURS
+		,s.TEL
+		,s.SHOP_INFO
+		,s.CPC
+		,s.BELONG_TO
+		,s.DISTANCE
+		,s.CREATE_DATE
+		,s.UPDATE_DATE
+		,s.AREA
+		,s.[ADD]
+		,s.FLOOR_NAME
+		,s.SHOP_NAME_EN
+		,s.SHOP_NAME_TC
+		,s.COLLECTION_NUM
+		,s.PRAISE_NUM
+		,s.IS_TAKE_NUMBER
+		,s.SORT
+		,(select
+		count(1) from NCP_SHOP ns where ns.STATUS !=5 and ns.PHYSICAL_STORE =
+		s.ID) IS_VIRTUAL
+		,s.PHYSICAL_STORE
+		,s.PROJECT_ID
+		,s.PROPERTY_TAG
+		,s.BANNER_IMAGE
+		,s.STATUS
+		,(select count(1) from NCP_SHOP_RECOMMEND r
+		where r.SHOP_ID = s.ID) "isHome"
+		from NCP_SHOP s
+		where s.STATUS != 5
+		and
+		s.ID = #{id}
+	</select>
+
+	<select id="findByParams" parameterType="java.util.Map"
+		resultMap="rs_ncpShop">
+		select s.ID
+		,s.BUILDING_ID
+		,s.BUILDING_NAME
+		,s.FLOOR_ID
+		,s.SHOP_LOGO
+		,s.IMAGE_ID
+		,s.NAME
+		,s.POI_ID
+		,s.SHOP_NAME
+		,s.SHOP_TYPE
+		,s.ROOM_ID
+		,s.SHOP_HOURS
+		,s.TEL
+		,s.SHOP_INFO
+		,s.CPC
+		,s.BELONG_TO
+		,s.DISTANCE
+		,s.CREATE_DATE
+		,s.UPDATE_DATE
+		,s.AREA
+		,s.[ADD]
+		,s.FLOOR_NAME
+		,s.SHOP_NAME_EN
+		,s.SHOP_NAME_TC
+		,s.COLLECTION_NUM
+		,s.PRAISE_NUM
+		,s.IS_TAKE_NUMBER
+		,s.SORT
+		,(select
+		count(1) from NCP_SHOP ns where ns.STATUS !=5 and ns.PHYSICAL_STORE =
+		s.ID) IS_VIRTUAL
+		,s.PHYSICAL_STORE
+		,s.PROJECT_ID
+		,s.PROPERTY_TAG
+		,s.BANNER_IMAGE
+		,s.STATUS
+		,(select count(1) from
+		NCP_SHOP_RECOMMEND r where
+		r.SHOP_ID = s.ID) "isHome"
+		from NCP_SHOP s
+		where s.STATUS != 5
+		<if test="physicalStore != null">
+			and s.PHYSICAL_STORE = #{physicalStore}
+		</if>
+		
+	</select>
+
+	<select id="findAllList" resultMap="rs_ncpShop">
+		SELECT * FROM NCP_SHOP where
+		STATUS!=5 ORDER BY SORT
+	</select>
+
+	<select id="findAllListByParams" parameterType="java.util.Map"
+		resultMap="rs_ncpShop">
+		select s.ID
+		,s.BUILDING_ID
+		,s.BUILDING_NAME
+		,s.FLOOR_ID
+		,s.SHOP_LOGO
+		,s.IMAGE_ID
+		,s.NAME
+		,s.POI_ID
+		,s.SHOP_NAME
+		,b.FORMAT_TYPE_NAME SHOP_TYPE
+		,s.ROOM_ID
+		,s.SHOP_HOURS
+		,s.TEL
+		,s.SHOP_INFO
+		,s.CPC
+		,s.BELONG_TO
+		,s.DISTANCE
+		,s.CREATE_DATE
+		,s.UPDATE_DATE
+		,s.AREA
+		,s.[ADD]
+		,s.FLOOR_NAME
+		,s.SHOP_NAME_EN
+		,s.SHOP_NAME_TC
+		,s.COLLECTION_NUM
+		,s.PRAISE_NUM
+		,s.IS_TAKE_NUMBER
+		,s.SORT
+		,s.IS_VIRTUAL
+		,s.PHYSICAL_STORE
+		,s.PROJECT_ID
+		,s.PROPERTY_TAG
+		,s.BANNER_IMAGE
+		,s.STATUS
+		from NCP_SHOP s
+		LEFT JOIN
+		NCP_SHOP_BRAND_HOME b ON b.FORMAT_TYPE = s.SHOP_TYPE
+		where STATUS !=5
+		<if test="isVirtual != null">
+			and IS_VIRTUAL = #{isVirtual}
+		</if>
+	</select>
+
+	<sql id="shopListSql">
+		select * from (
+		SELECT
+		s.UPDATE_DATE,
+		s.ID "id",
+		s.SHOP_NAME "shopName",
+		s.SORT "sort",
+		f.FLOOR_NAME "floorName",
+		s.[ADD] "address",
+		b.FORMAT_TYPE_NAME
+		"shopType",
+		s.TEL "tel",
+		s.CPC "cpc",
+		s.POI_ID "poiId",
+		(select count(1)
+		from NCP_SHOP_RECOMMEND r where r.SHOP_ID = s.ID) "isHome"
+		FROM
+		NCP_SHOP s
+		LEFT JOIN NCP_BUILDING_FLOOR f ON f.STATUS = '1'
+		AND
+		f.FLOOR_ID = s.FLOOR_ID
+		LEFT JOIN NCP_SHOP_BRAND_HOME b ON
+		b.FORMAT_TYPE = s.SHOP_TYPE
+		left join NCP_SHOP_RECOMMEND r on r.SHOP_ID
+		= s.ID
+		where s.STATUS != 5
+		and s.IS_VIRTUAL = 0
+		<if test="shopName != null">
+			and s.SHOP_NAME like '%${shopName}%'
+		</if>
+		) s
+		where 1=1
+		and s.id not in(select ID from NCP_SHOP where
+		STATUS !=5 AND PHYSICAL_STORE is not null and IS_VIRTUAL = 1)
+		<if test="isHome == 0">
+			and s.isHome = 0
+		</if>
+		<if test="isHome == 1">
+			and s.isHome >0
+		</if>
+	</sql>
+	<select id="countListByParams" parameterType="java.util.Map"
+		resultType="long">
+		select count(1) from (
+		<include refid="shopListSql" />
+		)rs
+	</select>
+
+	<select id="findListByParams" parameterType="java.util.Map"
+		resultType="java.util.Map">
+		select * from
+		(
+		<include refid="shopListSql" />
+		) rs
+		<!-- order by rs.id,sort -->
+		<if test="sort==null or sort==''">
+			order by rs.UPDATE_DATE desc
+		</if>
+		<if test="sort!=null and sort!=''">
+			order by "${sort}"
+			<if test="order!=null and order!=''">
+				${order}
+			</if>
+		</if>
+		offset #{offset} row fetch next #{limit} rows only
+	</select>
+
+	<select id="queryByParams" parameterType="java.util.Map"
+		resultType="java.util.HashMap">
+		select s.ID "id"
+		,s.BUILDING_ID "buildingId"
+		,s.BUILDING_NAME
+		"buildingName"
+		,s.FLOOR_ID "floorId"
+		,s.SHOP_LOGO "shopLogo"
+		,s.IMAGE_ID
+		"imageId"
+		,s.NAME "name"
+		,s.POI_ID "poiId"
+		,s.SHOP_NAME "shopName"
+		,b.FORMAT_TYPE_NAME "shopType"
+		,s.ROOM_ID "roomId"
+		,s.SHOP_HOURS
+		"shopHours"
+		,s.TEL "tel"
+		,s.SHOP_INFO "shopInfo"
+		,s.CPC "cpc"
+		,s.BELONG_TO "belongTo"
+		,s.DISTANCE "distance"
+		,s.CREATE_DATE
+		"createDate"
+		,s.UPDATE_DATE "updateDate"
+		,s.AREA "area"
+		,s.[ADD]
+		"address"
+		,s.FLOOR_NAME "floorName"
+		,s.SHOP_NAME_EN "shopNameEn"
+		,s.SHOP_NAME_TC "shopNameTc"
+		,s.COLLECTION_NUM "collectionNum"
+		,s.PRAISE_NUM "praiseNum"
+		,s.IS_TAKE_NUMBER "isTakeNumber"
+		,s.SORT
+		"sort"
+		,(select
+		count(1) from NCP_SHOP ns where ns.STATUS !=5 and ns.PHYSICAL_STORE =
+		s.ID) "isVirtual"
+		,s.PHYSICAL_STORE "physicalStore"
+		,s.PROJECT_ID "projectId"
+		,s.PROPERTY_TAG "propertyTag"
+		,s.BANNER_IMAGE
+		"bannerImage"
+		,(select count(1) from NCP_SHOP_RECOMMEND r where
+		r.SHOP_ID = s.ID) "isHome"
+		,s.STATUS "status"
+		,f.FLOOR_NAME "floorName"
+		from NCP_SHOP s
+		LEFT JOIN NCP_SHOP_BRAND_HOME b ON b.FORMAT_TYPE =
+		s.SHOP_TYPE
+		LEFT JOIN NCP_BUILDING_FLOOR f on f.FLOOR_ID = s.FLOOR_ID
+		where s.STATUS !=5
+		<if test="id != null">
+			and s.ID = #{id}
+		</if>
+	</select>
+
+	<update id="delete" parameterType="long">
+		update NCP_SHOP set STATUS = 5,UPDATE_DATE = getdate()
+		where ID = #{id}
+	</update>
+
+	<update id="updateStatus" parameterType="java.util.Map">
+		update NCP_SHOP
+		set
+		STATUS = #{status},
+		UPDATE_DATE = getdate()
+		where ID = #{id}
+	</update>
+
+	<insert id="insert" parameterType="com.cms.core.market.business.domain.NcpShopDto"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into NCP_SHOP(FLOOR_ID,
+		SHOP_LOGO,
+		IMAGE_ID,
+		POI_ID,
+		SHOP_NAME,
+		SHOP_TYPE,
+		SHOP_HOURS,
+		TEL,
+		SHOP_INFO,
+		CPC,
+		BELONG_TO,
+		[ADD],
+		CREATE_DATE,
+		UPDATE_DATE,
+		FLOOR_NAME,
+		SORT,
+		IS_VIRTUAL,
+		PHYSICAL_STORE,
+		BANNER_IMAGE,
+		BUILDING_ID,
+		BUILDING_NAME)
+		values(
+		#{floorId},
+		#{shopLogo},
+		#{imageId},
+		#{poiId},
+		#{shopName},
+		#{shopType},
+		#{shopHours},
+		#{tel},
+		#{shopInfo,jdbcType=VARCHAR},
+		#{cpc},
+		#{belongTo},
+		#{add},
+		#{createDate},
+		#{updateDate},
+		#{floorName},
+		#{sort},
+		#{isVirtual},
+		#{physicalStore},
+		#{bannerImage},
+		'31010000012',
+		'长宁88'
+		)
+	</insert>
+
+	<update id="update" parameterType="com.cms.core.market.business.domain.NcpShopDto">
+		update NCP_SHOP set
+		FLOOR_ID = #{floorId},
+		<if test="shopLogo != null and shopLogo != ''">
+			SHOP_LOGO = #{shopLogo},
+		</if>
+		<if test="imageId != null and imageId != ''">
+			IMAGE_ID = #{imageId},
+		</if>
+		NAME = #{name},
+		SHOP_NAME =
+		#{shopName},
+		SHOP_TYPE = #{shopType},
+		SHOP_HOURS = #{shopHours},
+		TEL = #{tel},
+		SHOP_INFO =
+		#{shopInfo,jdbcType=VARCHAR},
+		CPC = #{cpc},
+		BELONG_TO = #{belongTo},
+		[ADD] = #{add}, 
+		UPDATE_DATE =
+		#{updateDate},
+		FLOOR_NAME = #{floorName},
+		SORT = #{sort},
+		IS_VIRTUAL =
+		#{isVirtual},
+		POI_ID = #{poiId},
+		<if test="bannerImage != null and bannerImage != ''">
+			BANNER_IMAGE = #{bannerImage},
+		</if>
+		PHYSICAL_STORE = #{physicalStore}
+		where ID = #{id}
+	</update>
+	
+	<select id="findByIdFull" parameterType="long" resultMap="rs_ncpShop">
+		select s.ID
+		,s.BUILDING_ID
+		,s.BUILDING_NAME
+		,s.FLOOR_ID
+		,s.SHOP_LOGO
+		,s.IMAGE_ID
+		,s.NAME
+		,s.POI_ID
+		,s.SHOP_NAME
+		,s.SHOP_TYPE
+		,s.ROOM_ID
+		,s.SHOP_HOURS
+		,s.TEL
+		,s.SHOP_INFO
+		,s.CPC
+		,s.BELONG_TO
+		,s.DISTANCE
+		,s.CREATE_DATE
+		,s.UPDATE_DATE
+		,s.AREA
+		,s.[ADD]
+		,s.FLOOR_NAME
+		,s.SHOP_NAME_EN
+		,s.SHOP_NAME_TC
+		,s.COLLECTION_NUM
+		,s.PRAISE_NUM
+		,s.IS_TAKE_NUMBER
+		,s.SORT
+		,s.IS_VIRTUAL
+		,s.PHYSICAL_STORE
+		,s.PROJECT_ID
+		,s.PROPERTY_TAG
+		,s.BANNER_IMAGE
+		,s.STATUS
+		,(select count(1) from NCP_SHOP_RECOMMEND r
+		where r.SHOP_ID = s.ID) "isHome"
+		from NCP_SHOP s
+		where s.STATUS != 5
+		and
+		s.ID = #{id}
+	</select>
+</mapper>

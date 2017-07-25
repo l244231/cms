@@ -1,0 +1,44 @@
+<% layout("/resources/template/sub/grid.html",{functionPath:'/resources/js/cms/commerce/inStore/detail'}){ %>
+<div class="wrapper wrapper-content animated fadeInUp">
+	<div class="breadcrumbBar">
+		<ol class="breadcrumb">
+		<% if(pageType == 1){%>
+			<li><a href="${basePath}/commerce/trial/page">商品管理 </a></li>
+			<li class="active">商品详情</li>
+		<% }else if(pageType == 2){ %>
+			<li><a href="${basePath}/commerce/trial/page">团购爆款 </a></li>
+			<li class="active">团购商品详情</li>
+		<% }else if(pageType == 3){%>
+			<li><a href="${basePath}/commerce/trial/page">试用管理 </a></li>
+			<li class="active">试用商品详情</li>
+		<%}%>
+			<li class="active">入库记录</li>
+		</ol>
+	</div>
+	<!-- Panel Other -->
+	<div class=" float-e-margins">
+
+		<div class="row row-lg">
+			<div class="col-sm-12">
+				<!-- Example Events -->
+				<div class="tabs-container">
+					<div class="tab-content">
+						<div id="tab-1" class="tab-pane active">
+							<div class="panel-body">
+								<div class="columns hidden-xs" style="margin-top: 0px;" id="commodityGroupTableToolbar" role="group">
+									<form class="form-horizontal searchBar" id="commodityGroupForm">
+									</form>
+								</div>
+								<table id="inTheSaleTable" data-mobile-responsive="true">
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- End Example Events -->
+			</div>
+		</div>
+	</div>
+	<!-- End Panel Other -->
+</div>
+<%}%>

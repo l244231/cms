@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.core.market.base.dao.NcpBuildingFloorDao">
+	<resultMap type="com.cms.core.market.base.domain.NcpBuildingFloorDto" id="rs_brandHome">
+		<result column="FLOOR_ID" property="floorId" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result column="BUILDING_ID" property="buildingId" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result column="BUILDING_NAME" property="buildingName" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result column="CREATE_DATE" property="createDate" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result column="EXTEND1" property="extend1" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result column="EXTEND2" property="extend2" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result column="EXTEND3" property="extend3" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result column="EXTEND4" property="extend4" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result column="EXTEND5" property="extend5" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result column="FLOOR_INDEX" property="floorIndex" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result column="FLOOR_NAME" property="floorName" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result column="IS_DEFAULT" property="isDefault" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result column="UPDATE_DATE" property="updateDate" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result column="FLOOR_TYPE" property="floorType" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result column="FLOOR_NAME_EN" property="floorNameEn" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" javaType="short" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="findAllListByParams" parameterType="java.util.Map" resultMap="rs_brandHome">
+		select
+		FLOOR_ID
+		,BUILDING_ID
+		,BUILDING_NAME
+		,CREATE_DATE
+		,EXTEND1
+		,EXTEND2
+		,EXTEND3
+		,EXTEND4
+		,EXTEND5
+		,FLOOR_INDEX
+		,FLOOR_NAME
+		,IS_DEFAULT
+		,UPDATE_DATE
+		,FLOOR_TYPE
+		,FLOOR_NAME_EN
+		,STATUS
+		from NCP_BUILDING_FLOOR
+		where BUILDING_ID = '31010000012'
+	</select>
+</mapper>

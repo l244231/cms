@@ -1,0 +1,286 @@
+<% layout("/resources/template/sub/grid.html",{functionPath:'/resources/js/cms/commerce/order/detail'}){ %>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="breadcrumbBar">
+		<ol class="breadcrumb">
+			<li><a href="${basePath}/commerce/order/page">订单管理</a></li>
+			<li class="active">订单详情</li>
+		</ol>
+	</div>
+	<form class="form-horizontal m-t detailFrom" id="orderForm">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox">
+					<div class="ibox-title">
+						<a href="javascript:history.go(-1)" type="button" class="btn  btn-default " title="返回" style="float: left; margin-right: 10px;"> 返回 </a>
+						<h5>订单详情</h5>
+						<div class="ibox-tools">
+							<% var status = order.status!; if(status == 1){%>
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#IssueModal">发货</button>
+							<%}%> <% if(status != 2 && status != 3 && status != 6 && status !=4){%>
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cancelOrderModal">取消订单</button>
+							<%}%>
+						</div>
+					</div>
+					<div class="ibox-content">
+						<div class="row">
+							<div class="col-sm-7">
+								<div class="panel panel-default">
+									<div class="panel-heading">订单信息</div>
+									<div class="panel-body" style="padding: 0px;">
+										<div class="panel panel-default" style="margin-bottom: 0px;">
+											<div class="panel-body">
+												<div class="form-group">
+													<label class="col-sm-3 control-label">订单号：</label>
+													<div class="col-sm-8">
+														<span id="orderNo">${order.orderNo!}</span>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-3 control-label">订单状态：</label>
+													<div class="col-sm-8">
+														<span id="orderNo"><% sysPara("orderStatus",order.status!);%></span>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-3 control-label">商铺：</label>
+													<div class="col-sm-8">${shop.shopName!}</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-3 control-label">下单时间：</label>
+													<div class="col-sm-8">${order.creationTime!,dateFormat="yyyy-MM-dd HH:mm:ss"}</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-3 control-label">下单人：</label>
+													<div class="col-sm-8">${order.userName!}</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-3 control-label">买家留言：</label>
+													<div class="col-sm-8">${order.notes!}</div>
+												</div>
+											</div>
+										</div>
+										<% for(commodity in commodityList){%>
+										<div class="panel panel-default" style="margin-bottom: 0px;">
+											<div class="panel-body">
+												<div class="form-group">
+													<label class="col-sm-3 control-label">商品图：</label>
+													<div class="col-sm-8">
+														<div class="col-sm-4">
+															<div class="thumbnail">
+																<img src="${basePath}/commerce/binaryFile/getFileById?id=${commodity.imageId!}" style="width: 100px; height: 100px;">
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-3 control-label">商品名：</label>
+													<div class="col-sm-8">${commodity.name!}</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-3 control-label">规格参数：</label>
+													<div class="col-sm-8">${commodity.specName!} - ${commodity.spec!}</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-3 control-label">分类参数：</label>
+													<div class="col-sm-8">${commodity.color!}</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-3 control-label">数量：</label>
+													<div class="col-sm-8">${commodity.quantity!}</div>
+												</div>
+
+
+												<div class="form-group">
+													<label class="col-sm-3 control-label">原价：</label>
+													<div class="col-sm-8">${commodity.amount!}</div>
+												</div>
+
+												<div class="form-group">
+													<label class="col-sm-3 control-label">成交价：</label>
+													<div class="col-sm-8">${commodity.amountActual!}</div>
+												</div>
+											</div>
+										</div>
+										<%}%> <%if(order.status == 2 || order.status == 3 || order.status == 6){%>
+										<div class="panel panel-default" style="margin-bottom: 0px;">
+											<div class="panel-body">
+												<div class="form-group">
+													<label class="col-sm-3 control-label">快递公司：</label>
+													<div class="col-sm-8">${order.deliveryCompany!}</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-3 control-label">快递单号：</label>
+													<div class="col-sm-8">${order.deliveryNub!}</div>
+												</div>
+												<%if(order.status == 2){%>
+												<div class="form-group">
+													<label class="col-sm-3 control-label">快递费用：</label>
+													<div class="col-sm-8">${order.deliveryNub!}</div>
+												</div>
+												<%}else{%>
+												<div class="form-group">
+													<label class="col-sm-3 control-label">发货时间：</label>
+													<div class="col-sm-8">${order.deliveryTime!,dateFormat="yyyy-MM-dd HH:mm:ss"}</div>
+												</div>
+												<%}%>
+											</div>
+										</div>
+										<%}%>
+										<div class="panel panel-default" style="margin-bottom: 0px;">
+											<div class="panel-body">
+												<div class="form-group">
+													<label class="col-sm-3 control-label">支付状态：</label>
+													<div class="col-sm-8"><%if(order.status == 0){%><%}else if(order.status == 1 || order.status == 2 || order.status ==3 || order.status==6){%>支付成功<%}else{%>未支付<%}%></div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-3 control-label">支付时间：</label>
+													<div class="col-sm-8">${order.payTime!,dateFormat="yyyy-MM-dd HH:mm:ss"}</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-3 control-label">支付方式：</label>
+													<div class="col-sm-8"><%sysPara("orderPayType",order.payType!);%></div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-3 control-label">订单总金额：</label>
+													<div class="col-sm-8">${order.amount!}</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-3 control-label">实际成交金额：</label>
+													<div class="col-sm-8">${order.amountActual!}</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-sm-5">
+								<div class="panel panel-default">
+									<div class="panel-body">
+										<!-- <div class="col-sm-6">
+											<div class="thumbnail">
+												<img src="" style="width: 200px; height: 200px;">
+											</div>
+										</div> -->
+										<div class="col-sm-12">
+											<div class="form-group">
+												<label class="col-sm-4 control-label">收货人：</label>
+												<div class="col-sm-8">${order.consignee!}</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-4 control-label">联系方式：</label>
+												<div class="col-sm-8">${order.mobile!}</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-4 control-label">地址：</label>
+												<div class="col-sm-8">${order.address!}</div>
+											</div>
+											<!-- TODO 取消邮编显示
+											<div class="form-group">
+												<label class="col-sm-4 control-label">邮编：</label>
+												<div class="col-sm-8">${order.zipCode!}</div>
+											</div>
+											 -->
+										</div>
+									</div>
+								</div>
+							</div>
+							<%if(order.status == 4){%>
+							<div class="col-sm-5">
+								<div class="panel panel-default">
+									<div class="panel-body">
+										<!-- <div class="col-sm-6">
+											<div class="thumbnail">
+												<img src="" style="width: 200px; height: 200px;">
+											</div>
+										</div> -->
+										<div class="col-sm-12">
+											<div class="form-group">
+												<label class="col-sm-4 control-label">取消操作人：</label>
+												<div class="col-sm-8">${order.cancelUser!}</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-4 control-label">取消时间：</label>
+												<div class="col-sm-8">${order.cancelTime!,dateFormat="yyyy-MM-dd HH:mm:ss"}</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-4 control-label">取消原因：</label>
+												<div class="col-sm-8">${order.cancelReason!}</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<%}%>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<div class="modal inmodal" id="IssueModal" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content animated bounceInRight">
+			<div class="modal-header">
+				<!-- <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
+                </button> -->
+				<h4 class="modal-title">发货确认</h4>
+			</div>
+			<form class="form-horizontal m-t" id="IssueForm">
+				<div class="modal-body">
+					<div class="form-group">
+						<label class="col-sm-3 control-label">快递公司：</label>
+						<div class="col-sm-8">
+							<select id="express" class=" form-control" placeholder="请选择" name="express"> 
+							<% for(express in expressList){%>
+								<option value="${express.id!}">${express.expressName!}</option> 
+							<%}%>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">快递单号：</label>
+						<div class="col-sm-8">
+							<input id="expressNo" type="text" placeholder="请输入快递单号" class="form-control" name="expressNo">
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer" style="text-align: center;">
+					<button type="submit" class="btn btn-primary" id="doIssue">确认发货</button>
+					<button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div class="modal inmodal" id="cancelOrderModal" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content animated bounceInRight">
+			<div class="modal-header">
+				<!-- <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
+               </button> -->
+				<h4 class="modal-title">取消订单</h4>
+			</div>
+			<form class="form-horizontal m-t" id="cancelOrderForm" name="cancelOrderForm">
+				<div class="modal-body">
+					<div class="form-group">
+						<label class="col-sm-3 control-label">取消原因：</label>
+						<div class="col-sm-8">
+							<textarea id="cancelReason" name="cancelReason" class="form-control" placeholder="请输入原因" style="height: 218px;"></textarea>
+						</div>
+					</div>
+
+				</div>
+				<div class="modal-footer" style="text-align: center;">
+					<button type="submit" class="btn btn-primary" id="doCancelOrder">取消订单</button>
+					<button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+	<%}%>

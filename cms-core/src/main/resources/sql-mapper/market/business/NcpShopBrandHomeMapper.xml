@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.core.market.business.dao.NcpShopBrandHomeDao">
+	<resultMap type="com.cms.core.market.business.domain.NcpShopBrandHomeDto" id="rs_brandHome">
+		<result property="id" column="ID" javaType="long" jdbcType="INTEGER" />
+		<result property="icon" column="ICON" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="formatImage" column="FORMAT_IMAGE" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="formatType" column="FORMAT_TYPE" javaType="long" jdbcType="INTEGER" />
+		<result property="formatTypeName" column="FORMAT_TYPE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="formatUri" column="FORMAT_URI" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="projectId" column="PROJECT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="sort" column="SORT" javaType="int" jdbcType="INTEGER" />
+		<result property="createDate" column="CREATE_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result property="createUser" column="CREATE_USER" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="updateDate" column="UPDATE_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result property="updateUser" column="UPDATE_USER" javaType="java.lang.String" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="findAllListByParams" parameterType="java.util.Map" resultMap="rs_brandHome">
+		select
+		 ID
+		,ICON
+		,FORMAT_IMAGE
+		,FORMAT_TYPE
+		,FORMAT_TYPE_NAME
+		,FORMAT_URI
+		,PROJECT_ID
+		,SORT
+		,CREATE_DATE
+		,CREATE_USER
+		,UPDATE_DATE
+		,UPDATE_USER
+		from NCP_SHOP_BRAND_HOME
+		where FORMAT_TYPE != 0
+	</select>
+</mapper>

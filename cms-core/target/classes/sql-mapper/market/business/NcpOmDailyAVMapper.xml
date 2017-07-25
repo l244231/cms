@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.core.market.action.dao.AudiovisualDao">
+	<resultMap type="com.cms.core.market.action.domain.AudiovisualDto" id="rs_audiovisual">
+		<result property="id" column="ID" javaType="long" jdbcType="INTEGER" />
+		<result property="title" column="TITLE" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="content" column="CONTENT" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="fileId" column="FILE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="fileType" column="FILE_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="createDate" column="CREATE_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result property="createUser" column="CREATE_USER" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="status" column="STATUS" javaType="short" jdbcType="INTEGER" />
+		<result property="sort" column="SORT" javaType="int" jdbcType="INTEGER" />
+		<result property="isHome" column="IS_HOME" javaType="int" jdbcType="INTEGER" />
+		<result property="image" column="IMAGE" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="uri" column="URI" javaType="java.lang.String" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="baseSql">
+		select
+		ID,
+		TITLE,
+		CONTENT,
+		FILE_ID,
+		FILE_TYPE,
+		CREATE_DATE,
+		CREATE_USER,
+		STATUS,
+		SORT,
+		IS_HOME,
+		IMAGE,
+		URI
+		from NCP_OM_DAILY_AV
+		where STATUS != 5
+		<if test="type != -1 and type == 1">
+			and upper(FILE_TYPE) = 'MP4'
+		</if>
+		<if test="type != -1 and type == 0">
+			and upper(FILE_TYPE) = 'MP3'
+		</if>
+		<if test="isHome != -1">
+			and IS_HOME = #{isHome}
+		</if>
+		<if test="title != null">
+			and TITLE like '%${title}%'
+		</if>
+		<!-- <if test="sort!=null and sort!=''">
+			order by #{sort}
+			<if test="order!=null and order!=''">
+				#{order}
+			</if>
+		</if> -->
+	</sql>
+
+	<select id="countListByParams" parameterType="java.util.Map" resultType="long">
+		select count(1) from (
+		<include refid="baseSql" />
+		) rs
+	</select>
+
+	<select id="findListByPage" parameterType="java.util.Map" resultMap="rs_audiovisual">
+		select * from
+		(
+		<include refid="baseSql" />
+		) rs
+		order by rs.ID offset #{offset} row fetch next #{limit} rows only
+	</select>
+
+	<!-- 推荐到首页 -->
+	<update id="recommendAudiovisual" parameterType="java.util.Map">
+		update NCP_OM_DAILY_AV
+		set IS_HOME = #{isHome}
+		where ID = #{id}
+	</update>
+
+	<!-- 逻辑删除 -->
+	<update id="delete" parameterType="long">
+		update NCP_OM_DAILY_AV set STATUS = 5 where ID = #{ID}
+	</update>
+
+	<select id="queryAvDetail" parameterType="long" resultType="java.util.HashMap">
+		select
+		av.ID as "id",
+		av.TITLE as "title",
+		av.CONTENT as "content",
+		av.SORT as "sort",
+		av.FILE_TYPE as "fileType",
+		av.FILE_ID as "fileId",
+		av.IMAGE as "image",
+		fi.NAME as
+		"fileName",
+		av.STATUS AS "status",
+		av.IS_HOME as "isHome"
+		from NCP_OM_DAILY_AV av
+		left join NCP_FILE_INFO fi
+		on fi.ID = av.FILE_ID
+		and fi.STATUS=1
+		where av.STATUS != 5
+		and av.ID = #{id}
+	</select>
+
+	<insert id="insertAv" parameterType="com.cms.core.market.action.domain.AudiovisualDomain">
+		insert into NCP_OM_DAILY_AV(TITLE, CONTENT,FILE_ID,FILE_TYPE,SORT,IMAGE,STATUS,IS_HOME,CREATE_DATE,URI)
+		values(#{title},#{content},#{fileId},#{fileType},#{sort},#{image},1,0,getdate(),#{uri})
+	</insert>
+
+	<update id="updateAv" parameterType="com.cms.core.market.action.domain.AudiovisualDomain">
+		update NCP_OM_DAILY_AV set
+		TITLE = #{title},
+		CONTENT = #{content},
+		<if test="fileId != null and fileId != ''">
+		FILE_ID = #{fileId},
+		</if>
+		FILE_TYPE = #{fileType},
+		<if test="image != null and image != ''">
+		IMAGE = #{image},
+		</if>
+		<if test="uri != null and uri != ''">
+			URI = #{uri},
+		</if>
+		SORT = #{sort}
+		where ID = #{id}
+	</update>
+
+	<update id="setStatus" parameterType="java.util.Map">
+		update NCP_OM_DAILY_AV set
+		STATUS = #{status}
+		where ID = #{id}
+	</update>
+	
+	<select id="countByParams" parameterType="java.util.Map" resultType="int">
+		select count(1) from NCP_OM_DAILY_AV 
+		where STATUS != 5
+		<if test="isHome != null">
+			and IS_HOME = #{isHome}
+		</if>
+		<if test="status != null">
+			and STATUS = #{status}
+		</if>
+	</select>
+</mapper>

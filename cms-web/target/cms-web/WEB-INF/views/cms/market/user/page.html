@@ -1,0 +1,37 @@
+<% layout("/resources/template/sub/grid.html",{functionPath:'/resources/js/cms/market/user/page'}){ %>
+<div class="wrapper wrapper-content animated fadeInUp">
+			<!-- Panel Other -->
+			<div class=" float-e-margins">
+
+				<div class="row row-lg">
+					<div class="col-sm-12">
+						<!-- Example Events -->
+						<div class="tabs-container">
+							<ul class="nav nav-tabs">
+								<li class="active">
+									<a data-toggle="tab" href="#tab-1" aria-expanded="true">用户列表</a>
+								</li>
+							</ul>
+							<div class="tab-content">
+								<div id="tab-1" class="tab-pane active">
+									<div class="panel-body">
+										<div class="columns hidden-xs" style="margin-top:0px;" id="userTableToolbar" role="group">
+		                                    <form class="form-horizontal searchBar" id="userForm">
+		                                    	<label class="control-label">关键字：</label>
+												<input id="userKeyword" type="text" placeholder="请输入关键词"
+														class="form-control w-150"  name="userKeyword" value="">
+		                                    </form>
+		                                </div>
+										<table id="userTable"  data-mobile-responsive="true">
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- End Example Events -->
+					</div>
+				</div>
+			</div>
+			<!-- End Panel Other -->
+		</div>
+<%}%>

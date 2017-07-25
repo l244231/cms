@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.core.commerce.commodity.dao.CommodityTrialDao">
+	<resultMap type="com.cms.core.commerce.commodity.domain.CommodityTrialDto"
+		id="rs_commodityTrial">
+		<result property="id" column="id" javaType="long" jdbcType="INTEGER" />
+		<result property="commodityId" column="commodity_id" javaType="long"
+			jdbcType="INTEGER" />
+		<result property="type" column="type" javaType="int" jdbcType="INTEGER" />
+		<result property="price" column="price" javaType="double"
+			jdbcType="NUMERIC" />
+		<result property="stock" column="stock" javaType="int"
+			jdbcType="INTEGER" />
+		<result property="sale" column="sale" javaType="int" jdbcType="INTEGER" />
+		<result property="sortId" column="sotr_id" javaType="int"
+			jdbcType="INTEGER" />
+		<result property="homeRecommended" column="home_recommended"
+			javaType="int" jdbcType="INTEGER" />
+		<result property="singleSold" column="single_sold" javaType="int"
+			jdbcType="INTEGER" />
+		<result property="creationTime" column="creation_time"
+			javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result property="startTime" column="start_time" javaType="java.util.Date"
+			jdbcType="TIMESTAMP" />
+		<result property="expiryTime" column="expiry_time" javaType="java.util.Date"
+			jdbcType="TIMESTAMP" />
+		<result property="lastModified" column="last_modified"
+			javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result property="numberPeople" column="number_people"
+			javaType="int" jdbcType="INTEGER" />
+		<result property="numberPeopleActual" column="number_people_actual"
+			javaType="int" jdbcType="INTEGER" />
+		<result property="limits" column="limits" javaType="int"
+			jdbcType="INTEGER" />
+		<result property="status" column="status" javaType="short"
+			jdbcType="INTEGER" />
+		<result property="popularity" column="popularity" javaType="int"
+			jdbcType="INTEGER" />
+	</resultMap>
+
+	<select id="findListByParams" parameterType="java.util.Map"
+		resultType="java.util.HashMap">
+		select * from (select
+		ct.id "id",
+		c.name "name",
+		c.list_icon_id
+		"listIconId",
+		ct.stock "stock",
+		ct.type "type",
+		ct.number_people_actual
+		"numberPeopleActual",
+		ct.sort_id "sortId",
+		ct.home_recommended
+		"homeRecommended",
+		ct.start_time "startTime",
+		ct.expiry_time
+		"expiryTime"
+		from commodity_trial ct
+		left join commodity c
+		on c.id =
+		ct.commodity_id
+		where ct.status != 5
+		<if test="keyWord !=null">
+			and c.name like '%${keyWord}%'
+		</if>
+		<if test="type !=null and type >=0">
+			and ct.type = #{type}
+		</if>
+		<if test="status != null and status ==1">
+			<![CDATA[ and ct.start_time > now()]]>
+		</if>
+		<if test="status != null and status ==2">
+			<![CDATA[ and ct.start_time <= now() and ct.expiry_time >= now()]]>
+		</if>
+		<if test="status != null and status ==3">
+			<![CDATA[ and ct.expiry_time < now()]]>
+		</if>
+		order by ct.last_modified desc
+		) tmp
+		<if test="sort!=null and sort!=''">
+			order by "${sort}"
+			<if test="order!=null and order!=''">
+				${order}
+			</if>
+		</if>
+	</select>
+
+	<select id="findById" parameterType="long" resultMap="rs_commodityTrial">
+		select
+		id,
+		commodity_id,
+		type,
+		price,
+		stock,
+		sale,
+		sort_id,
+		home_recommended,
+		sigle_sold,
+		creation_time,
+		start_time,
+		expiry_time,
+		last_modified,
+		limits,
+		number_people,
+		number_people_actual,
+		status,
+		popularity
+		from
+		commodity_trial
+		where id = #{id}
+	</select>
+
+	<update id="update"
+		parameterType="com.cms.core.commerce.commodity.domain.CommodityTrialDto">
+		update commodity_trial
+		set
+		commodity_id = #{commodityId},
+		type = #{type},
+		price = #{price},
+		stock = #{stock},
+		sort_id = #{sortId},
+		home_recommended = #{homeRecommended},
+		sigle_sold = #{singleSold},
+		creation_time = #{creationTime},
+		start_time = #{startTime},
+		expiry_time
+		= #{expiryTime},
+		limits = #{limits},
+		number_people = #{numberPeople},
+		status = #{status},
+		last_modified = #{lastModified}
+		where id = #{id}
+	</update>
+
+	<update id="updateStatus"
+		parameterType="com.cms.core.commerce.commodity.domain.CommodityTrialDto">
+		update commodity_trial
+		set
+		status = #{status},
+		last_modified = #{lastModified}
+		where id = #{id}
+	</update>
+
+	<update id="updateIsHome"
+		parameterType="com.cms.core.commerce.commodity.domain.CommodityTrialDto">
+		update commodity_trial
+		set
+		home_recommended=#{homeRecommended},
+		last_modified = #{lastModified}
+		where id = #{id}
+	</update>
+
+	<select id="findByParams" parameterType="java.util.Map"
+		resultMap="rs_commodityTrial">
+		select
+		id,
+		commodity_id,
+		type,
+		price,
+		stock,
+		sale,
+		sort_id,
+		home_recommended,
+		sigle_sold,
+		creation_time,
+		start_time,
+		expiry_time,
+		last_modified,
+		limits,
+		number_people,
+		number_people_actual,
+		status,
+		popularity
+		from
+		commodity_trial
+		where 1 = 1
+		and status != 5
+		<if test="status != null ">
+			and status = #{status}
+		</if>
+		<if test="commodityId != null">
+			and commodity_id = #{commodityId}
+		</if>
+	</select>
+
+	<select id="countByParams" parameterType="java.util.Map"
+		resultType="int">
+		select count(1)
+		from commodity_trial
+		where status !=5
+		<if test="homeRecommended != null">
+			and home_recommended=#{homeRecommended}
+		</if>
+	</select>
+
+	<insert id="insert"
+		parameterType="com.cms.core.commerce.commodity.domain.CommodityTrialDto"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+		commodity_trial(
+		commodity_id,
+		type,
+		price,
+		stock,
+		sort_id,
+		home_recommended,
+		sigle_sold,
+		creation_time,
+		start_time,
+		expiry_time,
+		last_modified,
+		limits,
+		number_people,
+		status)
+		VALUES (
+		#{commodityId},
+		#{type},
+		#{price},
+		#{stock},
+		#{sortId},
+		#{homeRecommended},
+		#{singleSold},
+		#{creationTime},
+		#{startTime},
+		#{expiryTime},
+		#{lastModified},
+		#{limits},
+		#{numberPeople},
+		#{status})
+	</insert>
+
+	<update id="updateStock"
+		parameterType="com.cms.core.commerce.commodity.domain.CommodityTrialDto">
+		update commodity_trial
+		set stock = #{stock}
+		where id = #{id}
+	</update>
+</mapper>

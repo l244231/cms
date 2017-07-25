@@ -1,0 +1,45 @@
+<% layout("/resources/template/sub/grid.html",{functionPath:'/resources/js/cms/market/shop/page'}){ %>
+
+<div class="wrapper wrapper-content animated fadeInUp">
+			<!-- Panel Other -->
+			<div class=" float-e-margins">
+
+				<div class="row row-lg">
+					<div class="col-sm-12">
+						<!-- Example Events -->
+						<div class="tabs-container">
+							<ul class="nav nav-tabs">
+								<li class="active">
+									<a data-toggle="tab" href="#tab-1" aria-expanded="true">品牌管理</a>
+								</li>
+							</ul>
+							<div class="tab-content">
+								<div id="tab-1" class="tab-pane active">
+									<div class="panel-body">
+										<div class="columns hidden-xs" style="margin-top:0px;" id="brandTableToolbar" role="group">
+		                                    <form class="form-horizontal searchBar" id="brandForm">
+		                                    	<label class="control-label">关键字：</label>
+												<input id="keyWord" type="text" placeholder="请输入关键词"
+														class="form-control w-150"  name="seq">
+												<label class="control-label">推荐到首页：</label>
+												<select id="isHome" class=" form-control w-100" placeholder="请选择类型"  name="ismain">
+													<option value="-1">全部</option>
+													<option value="1">是</option>
+													<option value="0">否</option>
+												</select>
+		                                    </form>
+		                                </div>
+										<table id="brandTable"  data-mobile-responsive="true">
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			var isBack = '${isBack}';
+		</script>
+<%}%>

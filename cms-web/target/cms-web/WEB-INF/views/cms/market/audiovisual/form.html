@@ -1,0 +1,91 @@
+<%
+layout("/resources/template/sub/grid.html",{functionPath:'/resources/js/cms/market/audiovisual/form'}){
+%>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="breadcrumbBar">
+		<ol class="breadcrumb">
+			<li><a href="${basePath}/market/audiovisual/page">每日视听管理</a></li>
+			<li class="active">添加每日视听</li>
+		</ol>
+	</div>
+	<form class="form-horizontal m-t" id="audiovisualForm" name="audiovisualForm" >
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox">
+					<div class="ibox-title">
+						<a href="${basePath}/market/audiovisual/page?isBack=true" type="button"
+							class="btn  btn-default " title="返回"
+							style="float: left; margin-right: 10px;"> 返回 </a>
+						<h5>添加每日视听</h5>
+						<div class="ibox-tools">
+							<button type="submit" class="btn   btn-primary " id="saveBut" >
+								保存</button>
+						</div>
+					</div>
+					<div class="ibox-content">
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="panel panel-default">
+									<div class="panel-heading">视听封面</div>
+									<div class="panel-body">
+										<div class="showImg">
+											<a href="#" class="thumbnail"> <img
+												id="ImgPr"
+												style="" src="${basePath}/market/ncpImageInfo/getFileById?id=${result.image!}"
+												>
+											</a>
+											<h5>建议尺寸：600*600</h5>
+										</div>
+										<div class="form-group" style="padding: 15px;">
+											<input type="file" id="imgFile" name="imgFile">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-8">
+								<div class="panel panel-default">
+									<div class="panel-heading">视听信息</div>
+									<div class="panel-body">
+										<div class="form-group">
+											<label class="col-sm-3 control-label">标题：</label>
+											<div class="col-sm-8">
+												<input id="title" name="title" placeholder="请输入标题"
+													type="text" class="form-control" value="${result.title!''}">
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label class="col-sm-3 control-label">排序：</label>
+											<div class="col-sm-8">
+												<input id="sort" type="text" placeholder="请输入排序"
+													class="form-control" name="sort" value="${result.sort!''}">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">文件：</label>
+											<div class="col-sm-8">
+												<input type="file" name="videoFile" id="videoFile"
+													placeholder="请选择文件" >
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">介绍：</label>
+											<div class="col-sm-8">
+												<textarea id="content" name="content" class="form-control"
+													placeholder="请输入介绍" aria-required="true"
+													style="height: 218px;">${result.content!}</textarea>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<input type="hidden" id="id" name="id" value="${result.id!}">
+	</form>
+</div>
+<%}%>

@@ -1,0 +1,10 @@
+com\cms\hb\commerce\common\dao\impl\BinaryFileHbDaoImpl.class
+com\tnsoft\hibernate\SeqGenerator.class
+com\tnsoft\hibernate\DbSession.class
+com\cms\hb\commerce\common\service\BinaryFileHbService.class
+com\cms\hb\commerce\common\domain\BinaryFileHbDto.class
+com\cms\hb\commerce\common\dao\BinaryFileHbDao.class
+com\tnsoft\hibernate\BaseHibernateUtils$1.class
+com\cms\hb\commerce\common\service\impl\BinaryFileHbServiceImpl.class
+com\tnsoft\hibernate\BaseHibernateUtils$HibernateDataSource.class
+com\tnsoft\hibernate\BaseHibernateUtils.class

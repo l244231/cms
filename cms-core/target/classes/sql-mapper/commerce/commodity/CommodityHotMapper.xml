@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.core.commerce.commodity.dao.CommodityHotDao">
+	<resultMap type="com.cms.core.commerce.commodity.domain.CommodityHotDto"
+		id="rs_commodityHot">
+		<result property="id" column="id" javaType="long" jdbcType="INTEGER" />
+		<result property="commodityId" column="commodity_id" javaType="long"
+			jdbcType="INTEGER" />
+		<result property="sortId" column="sort_id" javaType="int"
+			jdbcType="INTEGER" />
+		<result property="creationTime" column="creation_time"
+			javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result property="lastModified" column="last_modified"
+			javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result property="homeRecommended" column="home_recommended"
+			javaType="int" jdbcType="INTEGER" />
+		<result property="status" column="status" javaType="short"
+			jdbcType="INTEGER" />
+		<result property="startTime" column="start_time" javaType="java.util.Date"
+			jdbcType="TIMESTAMP" />
+		<result property="expiryTime" column="expiry_time" javaType="java.util.Date"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<select id="findListByParams" parameterType="java.util.Map"
+		resultType="java.util.HashMap">
+		select * from (select ch.id id,
+		c.name "name",
+		ch.sort_id "sortId",
+		c.list_icon_id "listIconId",
+		c.popularity "popularity",
+		c.sale sale,
+		ch.creation_time "creationTime",
+		ch.commodity_id "commodityId",
+		ch.start_time "startTime",
+		ch.expiry_time "expiryTime"
+		from
+		commodity_hot ch
+		left join commodity c
+		on c.id = ch.commodity_id
+		where
+		ch.status != '5'
+		<if test="commodityName != null">
+			and c.name like '%${commodityName}%'
+		</if>
+		order by ch.last_modified desc
+		) tmp
+		<if test="sort!=null and sort!=''">
+			order by "${sort}"
+			<if test="order!=null and order!=''">
+				${order}
+			</if>
+		</if>
+	</select>
+
+	<select id="findById" resultMap="rs_commodityHot" parameterType="long">
+		select
+		id,commodity_id,sort_id,creation_time,last_modified,status,home_recommended,start_time,expiry_time
+		from commodity_hot
+		where id = #{id}
+	</select>
+
+	<update id="update"
+		parameterType="com.cms.core.commerce.commodity.domain.CommodityHotDto">
+		update commodity_hot
+		set
+		<if test="status != null">
+			status = #{status},
+		</if>
+		<if test="lastModified != null">
+			last_modified = #{lastModified},
+		</if>
+		<if test="homeRecommended != null">
+			home_recommended = #{homeRecommended},
+		</if>
+		<if test="sortId != null">
+			sort_id = #{sortId},
+		</if>
+		<if test="startTime !=null">
+			start_time = #{startTime},
+		</if>
+		<if test="expiryTime !=null">
+			expiry_time = #{expiryTime},
+		</if>
+		id = id
+
+		where id = #{id}
+	</update>
+
+	<select id="findByParams" resultMap="rs_commodityHot">
+		select
+		id,commodity_id,sort_id,creation_time,last_modified,status,home_recommended
+		from commodity_hot
+		where status != 5
+		<if test="status != null">
+			and status = #{status}
+		</if>
+		<if test="commodityId != null">
+			and commodity_id = #{commodityId}
+		</if>
+	</select>
+
+	<insert id="insert"
+		parameterType="com.cms.core.commerce.commodity.domain.CommodityHotDto">
+		insert into commodity_hot(
+		commodity_id,
+		sort_id,
+		creation_time,
+		last_modified,
+		status,
+		home_recommended,
+		start_time,
+		expiry_time
+		)values(
+		#{commodityId},
+		#{sortId},
+		#{creationTime},
+		#{lastModified},
+		#{status},
+		#{homeRecommended},
+		#{startTime},
+		#{expiryTime}
+		)
+
+	</insert>
+</mapper>

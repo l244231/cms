@@ -1,0 +1,244 @@
+<%
+layout("/resources/template/sub/grid.html",{functionPath:'/resources/js/cms/market/shop/detail'}){
+%>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="breadcrumbBar">
+		<ol class="breadcrumb">
+			<li><a href="${basePath}/market/ncpShop/page">品牌管理</a></li>
+			<li class="active">品牌详情</li>
+		</ol>
+	</div>
+	<form class="form-horizontal m-t detailFrom" id="audiovisualForm">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox">
+					<div class="ibox-title">
+						<a href="${basePath}/market/ncpShop/page?isBack=true" type="button"
+							class="btn  btn-default " title="返回"
+							style="float: left; margin-right: 10px;"> 返回 </a>
+						<h5>查看品牌详情</h5>
+						<div class="ibox-tools">
+							<a type="button" id="disableBtn" data-status='<%if(shop.status==1){%>0<%}else if(shop.status==0){%>1<%}%>' class="btn  btn-primary"  >
+								<%if(shop.status==1){
+								%>禁用<%
+								}else if(shop.status==0){
+								%>启用<%
+								}%>
+							</a>
+							<a type="button" id="recomBtn" data-ishome='<%if(shop.isHome==1){%>0<%}else{%>1<%}%>' class="btn   btn-primary"  >
+								<%if(shop.isHome==1){%>取消推荐<%}else{%>推荐到首页<%}%>
+							</a>
+							<a type="button" class="btn   btn-primary "  href="${basePath}/market/ncpShop/edit?id=${shop.id!''}">
+								编辑
+							</a>
+						</div>
+					</div>
+					<div class="ibox-content">
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="panel panel-default">
+									<div class="panel-heading">品牌logo</div>
+									<div class="panel-body">
+										<div class="showImg">
+											<a href="javascript:void(0)" class="thumbnail"> 
+												<img
+												id="logoPr"
+												style="width:300px;height:300px;" src="${basePath}/market/ncpImageInfo/getFileById?id=${shop.shopLogo!}"
+												>
+											</a>
+											<h5>建议尺寸：300*300</h5>
+										</div>
+									</div>
+								</div>
+								<div class="panel panel-default">
+									<div class="panel-heading">大图片</div>
+									<div class="panel-body">
+										<div class="showImg">
+											<a href="javascript:void(0)" class="thumbnail"> 
+												<img 
+													id="bigimgPr"
+													style="width:375px;height:110px;" src="${basePath}/market/ncpImageInfo/getFileById?id=${shop.bannerImage!}"
+													>
+											</a>
+											<h5>建议尺寸：750*210</h5>
+										</div>
+									</div>
+								</div>
+								<div class="panel panel-default" <% if(shop.isHome!0 == 0){%>style="display: none;"<%}%>>
+									<div class="panel-heading">推荐首页logo</div>
+									<div class="panel-body">
+										<div class="showImg">
+											<a href="javascript:void(0)" class="thumbnail"> 
+												<img 
+													id="homeimgPr"
+													style="width:300px;height:220px;" src="${basePath}/market/ncpImageInfo/getFileById?id=${homeImg!}"
+													>
+											</a>
+											<h5>建议尺寸：300x220</h5>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-8">
+								<div class="panel panel-default">
+									<div class="panel-heading">品牌信息</div>
+									<div class="panel-body">
+										<div class="form-group">
+											<label class="col-sm-3 control-label">品牌名称：</label>
+											<div class="col-sm-8">
+												${shop.shopName!}
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">所属组织/公司：</label>
+											<div class="col-sm-8">
+												${shop.belongTo!}
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label class="col-sm-3 control-label">排序：</label>
+											<div class="col-sm-8">
+												${shop.sort!}
+											</div>
+										</div>
+										
+										
+										<div class="form-group">
+											<label class="col-sm-3 control-label">商铺POI：</label>
+											<div class="col-sm-8">
+												${shop.poiId!}
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label class="col-sm-3 control-label">商铺地址：</label>
+											<div class="col-sm-8">
+												${shop.address!}
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label class="col-sm-3 control-label">商铺楼层：</label>
+											<div class="col-sm-8">
+												${shop.floorName!}
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label class="col-sm-3 control-label">是否开通线上商城：</label>
+											<div class="col-sm-8">
+												<% sysPara("virtual",shop.isVirtual!);%>
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label class="col-sm-3 control-label">推荐到首页：</label>
+											<div class="col-sm-8" id="isHome">
+												<% sysPara("virtual",shop.isHome!);%>
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label class="col-sm-3 control-label">人均消费：</label>
+											<div class="col-sm-8">
+												${shop.cpc!}
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label class="col-sm-3 control-label">业态：</label>
+											<div class="col-sm-8">
+												${shop.shopType!}
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label class="col-sm-3 control-label">营业时间：</label>
+											<div class="col-sm-8">
+												<div class="row m-b-md">
+													<div class="col-md-5">
+														${shop.shopHours!}
+													</div>
+													 
+												</div>
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label class="col-sm-3 control-label">联系电话：</label>
+											<div class="col-sm-8">
+												${shop.tel!}
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label class="col-sm-3 control-label">商品展示图：</label>
+											<div class="col-sm-8">
+											
+												<!-- 循环   商品展示图 -->
+												
+												<!-- 循环 开始 -->
+												<% for(img in imgList!){%>
+												<div class="col-sm-4">
+													<div class="thumbnail">
+														<img style="width:100px;height:100px;" src="${basePath}/market/ncpImageInfo/getFileById?id=${img!}" >
+													</div>
+												</div>
+												<%}%>
+												<!-- 循环 结束 -->
+												
+											</div>
+										</div>
+										
+										
+										<div class="form-group">
+											<label class="col-sm-3 control-label">关联优惠：</label>
+											<div class="col-sm-8">
+												<% for(activity in activityList){%>
+												<div class="col-sm-4">
+													<div class="thumbnail">
+														<img 
+														style="width:100px;height:100px;" src="${basePath}/market/ncpImageInfo/getFileById?id=${activity.imageId!}"
+														>
+														<div class="caption" style="text-align: center;">
+															<h3>${activity.name!}</h3>
+														</div>
+													</div>
+												</div>
+												<%}%>
+											</div>
+										</div>
+										
+										
+										<div class="form-group">
+											<label class="col-sm-3 control-label">评论数：</label>
+											<div class="col-sm-8">
+												${commentCount!0}
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">赞数：</label>
+											<div class="col-sm-8">
+												${shop.praiseNum!0}
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">收藏数：</label>
+											<div class="col-sm-8">
+												${shop.collectionNum!0}
+											</div>
+										</div> 
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<input type="hidden" id="id" value="${shop.id!''}">
+	</form>
+</div>
+<%}%>

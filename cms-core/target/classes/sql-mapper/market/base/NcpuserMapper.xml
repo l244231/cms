@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.core.market.base.dao.NcpUserDao">
+	 <resultMap type="com.cms.core.market.base.domain.NcpUserDto" id="rs_ncpFileInfo">
+	 		<result property="userCode" column="USER_CODE" javaType="java.lang.String" jdbcType="VARCHAR" />
+	 		<result property="birthday" column="BIRTHDAY" javaType="java.lang.String" jdbcType="VARCHAR" />
+	 		<result property="cardNumber" column="CARD_NUMBER" javaType="java.lang.String" jdbcType="VARCHAR" />
+	 		<result property="cardType" column="CARD_TYPE" javaType="java.lang.String" jdbcType="INTEGER" />
+	 		<result property="createDate" column="CREATE_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+	 		<result property="email" column="EMAIL" javaType="java.lang.String" jdbcType="VARCHAR" />
+	 		<result property="extend1" column="EXTEND1" javaType="java.lang.String" jdbcType="VARCHAR" />
+	 		<result property="extend2" column="EXTEND2" javaType="java.lang.String" jdbcType="VARCHAR" />
+	 		<result property="extend3" column="EXTEND3" javaType="java.lang.String" jdbcType="VARCHAR" />
+	 		<result property="extend4" column="EXTEND4" javaType="java.lang.String" jdbcType="VARCHAR" />
+	 		<result property="followCount" column="FOLLOW_COUNT" javaType="java.lang.String" jdbcType="VARCHAR" />
+	 		<result property="gender" column="GENDER" javaType="java.lang.String" jdbcType="VARCHAR" />
+	 		<result property="imageId" column="IMAGE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+	 		<result property="mobilePhone" column="MOBILE_PHONE" javaType="java.lang.String" jdbcType="VARCHAR" />
+	 		<result property="organizationId" column="ORGANIZATION_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+	 		<result property="status" column="STATUS" javaType="java.lang.String" jdbcType="VARCHAR" />
+	 		<result property="updateDate" column="UPDATE_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+	 		<result property="userAlias" column="USER_ALIAS" javaType="java.lang.String" jdbcType="VARCHAR" />
+	 		<result property="userPwd" column="USER_PWD" javaType="java.lang.String" jdbcType="VARCHAR" />
+	 		<result property="hobby" column="HOBBY" javaType="java.lang.String" jdbcType="VARCHAR" />
+	 		<result property="realName" column="REAL_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+	 		<result property="star" column="STAR" javaType="java.lang.String" jdbcType="VARCHAR" />
+	 		<result property="sign" column="SIGN" javaType="java.lang.String" jdbcType="VARCHAR" />
+	 		<result property="cid" column="CID" javaType="java.lang.String" jdbcType="VARCHAR" />
+	 		<result property="age" column="AGE" javaType="java.lang.String" jdbcType="VARCHAR" />
+	 		<result property="backGround" column="BACK_GROUND" javaType="java.lang.String" jdbcType="VARCHAR" />
+	 		<result property="deviceToken" column="DEVICE_TOKEN" javaType="java.lang.String" jdbcType="VARCHAR" />
+	 		<result property="position" column="POSITION" javaType="java.lang.String" jdbcType="VARCHAR" />
+	 		<result property="telePhone" column="TELE_PHONE" javaType="java.lang.String" jdbcType="VARCHAR" />
+	 </resultMap>
+	 
+	  
+</mapper>

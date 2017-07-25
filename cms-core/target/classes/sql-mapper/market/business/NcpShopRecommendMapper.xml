@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.core.market.business.dao.NcpShopRecommendDao">
+	<resultMap type="com.cms.core.market.business.domain.NcpShopRecommendDto" id="rs_brandHome">
+		<result property="id" column="ID" javaType="long" jdbcType="INTEGER" />
+		<result property="shopId" column="SHOP_ID" javaType="long" jdbcType="INTEGER" />
+		<result property="image" column="IMAGE" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="createDate" column="CREATE_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result property="sort" column="SORT" javaType="int" jdbcType="INTEGER" />
+		<result property="type" column="TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="projectId" column="PROJECT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<delete id="delete" parameterType="long">
+		delete from NCP_SHOP_RECOMMEND
+		where SHOP_ID = #{id}
+	</delete>
+
+	<insert id="insert" parameterType="com.cms.core.market.business.domain.NcpShopRecommendDto">
+		insert
+		NCP_SHOP_RECOMMEND(SHOP_ID,PROJECT_ID,SORT,CREATE_DATE,IMAGE,TYPE)values(#{shopId},#{projectId},#{sort},#{createDate},#{image},3)
+	</insert>
+
+	<select id="countByParams" parameterType="java.util.Map" resultType="int">
+		select count(1) from NCP_SHOP_RECOMMEND
+		where 1=1
+		<if test="shopId != null">
+			and SHOP_ID = #{shopId}
+		</if>
+	</select>
+
+	<select id="queryByParams" parameterType="java.util.Map" resultType="java.util.HashMap">
+		select 
+			ID "id",
+			SHOP_ID "shopId",
+			IMAGE "image",
+			CREATE_DATE "createDate",
+			SORT "sort",
+			TYPE "type",
+			PROJECT_ID "projectId" 
+		from NCP_SHOP_RECOMMEND
+		where 1=1
+		<if test="shopId != null"> 
+			and SHOP_ID = #{shopId}
+		</if>
+	</select>
+</mapper>

@@ -1,0 +1,80 @@
+<% layout("/resources/template/sub/grid.html",{functionPath:'/resources/js/cms/commerce/commodity/page'}){ %>
+<div class="wrapper wrapper-content animated fadeInUp">
+			<!-- Panel Other -->
+			<div class=" float-e-margins">
+
+				<div class="row row-lg">
+					<div class="col-sm-12">
+						<!-- Example Events -->
+						<div class="tabs-container">
+							<ul class="nav nav-tabs">
+								<li class="active">
+									<a data-toggle="tab" href="#tab-1" aria-expanded="true">在售商品</a>
+								</li>
+								<li class="">
+									<a data-toggle="tab" href="#tab-2" aria-expanded="false">停售商品</a>
+								</li>
+							</ul>
+							<div class="tab-content">
+								<div id="tab-1" class="tab-pane active">
+									<div class="panel-body">
+										<div class="columns hidden-xs" style="margin-top:0px;" id="inTheSaleTableToolbar" role="group">
+		                                    <form class="form-horizontal searchBar" id="inTheSaleForm">
+		                                    	<label class="control-label">关键字：</label>
+												<input id="name" type="text" placeholder="请输入关键词"
+														class="form-control w-150"  name="name" value="">
+												<label class="control-label">类型：</label>
+												<select id="categoryId" data-size="8"  class="selectpicker form-control w-150" name="categoryId">
+													<option value="">全部</option>
+													
+												</select>
+												<label class="control-label">店铺：</label>
+												<select id="storeId" class=" form-control w-150"  name="storeId">
+													<option value="">全部</option>
+													<%for(ncpShopDto in ncpShopDtoList){%>
+														<option value="${ncpShopDto.id}">${ncpShopDto.shopName}</option>
+													<%}%>
+												</select>
+		                                    </form>
+		                                </div>
+										<table id="inTheSaleTable"  data-mobile-responsive="true">
+										</table>
+									</div>
+								</div>
+								<div id="tab-2" class="tab-pane">
+									<div class="panel-body">
+										<div class="columns hidden-xs" style="margin-top:0px;" id="haltTheSalesTableToolbar" role="group">
+		                                    <form class="form-horizontal searchBar" id="haltTheSalesForm">
+		                                    	<label class="control-label">关键字：</label>
+												<input id="haltTheSalesKeyword" type="text" placeholder="请输入关键词"
+														class="form-control w-150"  name="haltTheSalesKeyword" value="">
+												<label class="control-label">类型：</label>
+												<select id="haltTheSalesCategoryId" data-size="8"  class="selectpicker form-control w-150" name="haltTheSalesCategoryId">
+													<option value="">全部</option>
+													
+												</select>
+												<label class="control-label">店铺：</label>
+												<select id="haltTheSalesStoreId" class=" form-control w-150"  name="haltTheSalesStoreId">
+													<option value="">全部</option>
+													<%for(ncpShopDto in ncpShopDtoList){%>
+														<option value="${ncpShopDto.id}">${ncpShopDto.shopName}</option>
+													<%}%>
+												</select>
+		                                    </form>
+		                                </div>
+										<table id="haltTheSalesTable"  data-mobile-responsive="true">
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- End Example Events -->
+					</div>
+				</div>
+			</div>
+		<script>
+			var isBack = '${isBack}';
+		</script>
+			<!-- End Panel Other -->
+		</div>
+<%}%>

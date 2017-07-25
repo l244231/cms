@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.core.commerce.other.dao.AdsDao">
+	<resultMap type="com.cms.core.commerce.other.domain.AdsDto" id="rs_ads">
+		<result property="type" column="type" javaType="int" jdbcType="INTEGER" />
+		<result property="title" column="title" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="titleEn" column="titleEn" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="url" column="url" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="commodityId" column="commodityId" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="activityType" column="activityType" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="creationTime" column="creationTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result property="expiryTime" column="expiryTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="iconId" column="iconId" javaType="java.lang.String" jdbcType="VARCHAR" />
+	</resultMap>
+</mapper>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.core.commerce.commodity.dao.CommodityIconsDao">
+	<resultMap type="com.cms.core.commerce.commodity.domain.CommodityIconsDto"
+		id="rs_commodityIcons">
+		<result property="commodityId" column="commodity_id" javaType="long"
+			jdbcType="INTEGER" />
+		<result property="iconId" column="icon_id" javaType="long"
+			jdbcType="INTEGER" />
+		<result property="status" column="status" javaType="short"
+			jdbcType="INTEGER" />
+	</resultMap>
+
+	<insert id="insert"
+		parameterType="com.cms.core.commerce.commodity.domain.CommodityIconsDto">
+		<selectKey resultType="java.lang.Long" order="AFTER"
+			keyProperty="id">
+			SELECT currval('commodity_icons_id_seq') AS id
+		</selectKey>
+		insert into
+		commodity_icons(commodity_id,icon_id)
+		values(#{commodityId},#{iconId})
+	</insert>
+
+	<select id="findAllListByParams" parameterType="java.util.Map"
+		resultMap="rs_commodityIcons">
+		select * from commodity_icons
+		where 1=1
+		<if test="commodityId!=null and commodityId!=''"> 
+			and commodity_id=#{commodityId}
+		</if>
+		and status!=5
+	</select>
+	
+	<select id="findById" parameterType="long" resultMap="rs_commodityIcons">
+		SELECT *
+		FROM commodity_icons where id=#{id} and status!=5
+	</select>
+	
+	<update id="update" parameterType="long">
+		update commodity_icons set status=5 where id=#{id}
+	</update>
+	
+	<update id="deleteByParams" parameterType="java.util.Map">
+		update commodity_icons set status=5 where commodity_id=#{commodityId}
+	</update>
+	
+	<update id="deleteByFileId" parameterType="long">
+		update commodity_icons set status=5 where icon_id=#{iconId}
+	</update>
+	
+</mapper>

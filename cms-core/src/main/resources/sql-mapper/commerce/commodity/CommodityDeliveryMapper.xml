@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.core.commerce.commodity.dao.CommodityDeliveryDao">
+	<resultMap type="com.cms.core.commerce.commodity.domain.CommodityDeliveryDto" id="rs_commodityDelivery">
+		<result property="id" column="id" javaType="long" jdbcType="INTEGER" />
+		<result property="commodityId" column="commodity_id" javaType="long" jdbcType="INTEGER" />
+		<result property="deliveryId" column="delivery_id" javaType="long" jdbcType="INTEGER" />
+		<result property="creationTime" column="creation_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result property="lastModified" column="last_modified" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result property="status" column="status" javaType="short" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<select id="findListByParams" parameterType="java.util.Map" resultType="java.util.HashMap">
+		select cd.id "id",
+			   cd.commodity_id "commodityId",
+			   cd.delivery_id "deliveryId",
+			   dt.name
+		from commodity_delivery cd
+		left join delivery_tags dt
+		on dt.status !=5
+		and cd.delivery_id = dt.id
+		where cd.status != 5
+		<if test="commodityId != null">
+			and commodity_id =#{commodityId}
+		</if>
+	</select>
+	
+	<select id="findAllListByParams" parameterType="java.util.Map" resultMap="rs_commodityDelivery">
+		select *
+		from commodity_delivery
+		where status != 5
+		<if test="commodityId != null">
+			and commodity_id =#{commodityId}
+		</if>
+	</select>
+	
+	<insert id="insert"
+		parameterType="com.cms.core.commerce.commodity.domain.CommodityDeliveryDto">
+		<selectKey resultType="java.lang.Long" order="AFTER"
+			keyProperty="id">
+			SELECT currval('commodity_delivery_id_seq') AS id
+		</selectKey>
+		insert into
+		commodity_delivery(commodity_id,delivery_id,creation_time,last_modified)
+		values(#{commodityId},#{deliveryId},#{creationTime},#{lastModified})
+	</insert>
+	
+	<update id="deleteByParams" parameterType="java.util.Map">
+		update commodity_delivery set status=5 where commodity_id=#{commodityId}
+	</update>
+</mapper>

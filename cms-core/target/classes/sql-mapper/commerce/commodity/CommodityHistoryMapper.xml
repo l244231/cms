@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.core.commerce.commodity.dao.CommodityHistoryDao">
+	<resultMap type="com.cms.core.commerce.commodity.domain.CommodityHistoryDto" id="rs_commodityHistory">
+		<result property="id" column="id" javaType="long" jdbcType="INTEGER" />
+		<result property="commodityId" column="commodity_id" javaType="long" jdbcType="INTEGER" />
+		<result property="categoryId" column="category_id" javaType="long" jdbcType="INTEGER" />
+		<result property="name" column="name" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="shortName" column="short_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="shortNameEn" column="short_name_en" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="engName" column="eng_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="specName" column="spec_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="specNameEn" column="spec_name_en" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="listIconId" column="list_icon_id" javaType="long" jdbcType="INTEGER" />
+		<result property="sortId" column="sort_id" javaType="int" jdbcType="INTEGER" />
+		<result property="storeId" column="store_id" javaType="long" jdbcType="INTEGER" />
+		<result property="model" column="model" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="price" column="price" javaType="double" jdbcType="NUMERIC" />
+		<result property="currentPrice" column="current_price" javaType="double" jdbcType="NUMERIC" />
+		<result property="description" column="description" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="descriptionEn" column="descriptionEn" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="distribution" column="distribution" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="distributionEn" column="distributionEn" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="purchaseNotes" column="purchase_notes" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="purchaseNotesEn" column="purchase_notes_en" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="stock" column="stock" javaType="int" jdbcType="INTEGER" />
+		<result property="sale" column="sale" javaType="int" jdbcType="INTEGER" />
+		<result property="popularity" column="popularity" javaType="int" jdbcType="INTEGER" />
+		<result property="creationTime" column="creation_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result property="lastModified" column="last_modified" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+
+	<insert id="insert" parameterType="com.cms.core.commerce.commodity.domain.CommodityHistoryDto">
+		INSERT INTO eshop.commodity_history (commodity_id, category_id, name, short_name
+		, short_name_en, spec_name, spec_name_en, eng_name, list_icon_id
+		, sort_id, store_id, model, price, current_price
+		, description, distribution, purchase_notes, description_en, distribution_en
+		, purchase_notes_en, stock, sale, popularity, creation_time
+		, last_modified, status)
+		VALUES ( #{commodityId}, #{categoryId}, #{name}, #{shortName}, #{shortNameEn}
+		, #{specName}, #{specNameEn}, #{engName}, #{listIconId}, #{sortId}
+		, #{storeId}, #{model}, #{price}, #{currentPrice}, #{description}
+		, #{distribution}, #{purchaseNotes}, #{descriptionEn}, #{distributionEn}, #{purchaseNotesEn}
+		, #{stock}, #{sale}, #{popularity}, #{creationTime}, #{lastModified}
+		, #{status})
+	 
+	</insert>
+</mapper>

@@ -1,0 +1,206 @@
+<%
+layout("/resources/template/sub/grid.html",{functionPath:'/resources/js/cms/commerce/commodity/form'}){
+%>
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="breadcrumbBar">
+		<ol class="breadcrumb">
+			<li><a href="${basePath}/commerce/commodity/page">商品管理</a></li>
+			<%
+			if(isEdit){
+			%>
+				<li class="active">修改商品</li>
+			<%	
+			}else{
+			%>
+				<li class="active">新增商品</li>
+			<%	
+			}
+			%>
+		</ol>
+	</div>
+	<form class="form-horizontal m-t"  id="commodityForm" name="commodityForm">
+		<input type="hidden" name="isEdit" id="isEdit" value="${isEdit}">
+		<input type="hidden" name="id" id="id" value="${commodityDto.id!0}">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox">
+					<div class="ibox-title">
+						<a href="${basePath}/commerce/commodity/page?isBakc=true" type="button"
+							class="btn  btn-default" 
+							style="float: left; margin-right: 10px;"> 返回 </a>
+							<%
+							if(isEdit){
+							%>
+								<h5>修改商品</h5>
+							<%	
+							}else{
+							%>
+								<h5>新增商品</h5>
+							<%	
+							}
+							%>
+						<div class="ibox-tools">
+							<button type="submit" class="btn   btn-primary " id="saveBut" >
+								保存</button>
+						</div>
+					</div>
+					<div class="ibox-content">
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="panel panel-default">
+									<div class="panel-heading">商品图片<font style="color:red;">&nbsp;*&nbsp;</font>(建议尺寸300*200)</div>
+									<div class="panel-body">
+										<div class="showImg">
+											<a href="javascript:void(0)" class="thumbnail"> 
+												<img id="ImgPr" style="" src="${basePath}/commerce/binaryFile/getFileById?id=${commodityDto.listIconId!}">
+											</a>
+										</div>
+									</div>
+									<div style="padding: 15px;">
+										<input type="file" id="imgFile" name="imgFile">
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-8">
+								<div class="panel panel-default">
+									<div class="panel-heading">商品信息</div>
+									<div class="panel-body">
+										<div class="form-group">
+											<label class="col-sm-3 control-label">商品名：</label>
+											<div class="col-sm-8">
+												<input id="name" type="text" placeholder=""
+													class="form-control" name="name" value="${commodityDto.name!}">
+											</div>
+										</div>
+											
+										<!-- 团购长名称即为商品的名称(商品名称分为名称和短名称) -->
+										<div class="form-group">
+											<label class="col-sm-3 control-label">商品短名称：</label>
+											<div class="col-sm-8">
+												<input id="shortName" type="text" placeholder=""
+													class="form-control" name="shortName" value="${commodityDto.shortName!}">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">排序：</label>
+											<div class="col-sm-8">
+												<input id="sortId" type="text" placeholder=""
+													class="form-control" name="sortId" value="${commodityDto.sortId!}">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">状态：</label>
+											<div class="col-sm-8">
+												<select id="status" class=" form-control" name="status" data-value="${commodityDto.status!}">
+													<option value="1">上架</option>
+													<option value="4">下架</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">所属店铺：</label>
+											<div class="col-sm-8">
+												<select id="storeId" class=" form-control" name="storeId" data-value="${commodityDto.storeId!}">
+													<option value="">请选择商铺</option>
+													<%for(ncpShopDto in ncpShopDtoList){%>
+														<option value="${ncpShopDto.id}">${ncpShopDto.shopName}</option>
+													<%}%>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">所属类型：</label>
+											<div class="col-sm-8">
+												
+												<select id="categoryId" data-size="8" name="categoryId" data-value="${commodityDto.categoryId!}" class=" form-control">
+												  <option value="">请选择类型</option>
+												</select>
+											</div>
+										</div>
+											
+
+										<div class="form-group">
+											<label class="col-sm-3 control-label">商品列表图<font style="color:red;">&nbsp;*&nbsp;</font>：<br>(建议尺寸：750*210)</label>
+											<div class="col-sm-8">
+												<%for(commodityIconFileId in commodityIconFileIds!){%>
+													<div class='col-sm-4'>
+														<div class='thumbnail'>
+															<div class="thumbnailClose" data-imgid="${commodityIconFileId!}">
+																<i class="fa fa-close"></i>
+															</div>
+															<img style="width:100px;height:100px;"
+															src="${basePath}/commerce/binaryFile/getFileById?id=${commodityIconFileId!}"/>
+														</div>
+													</div>
+												<%}%>
+												<!-- 用于图片展示 -->
+												<div id="showImgDiv">
+													
+												</div>
+												<!-- 图片选择按钮 -->
+												<div class="col-sm-4">
+													<a class="thumbnail" id="addCommodity" title="按住ctrl键或shift键进行多选"> 
+														<img style="width:100px;height:100px;" data-src="" src="${basePath}/resources/img/webuploader.png"
+															data-holder-rendered="true">
+													</a>
+												</div>
+												<!-- 隐藏的文件域：目前单独用个div包含，样式有冲突 -->
+												<div class="col-sm-12" style="display: none;">
+													<input type="file" id="imgMultipleFile" multiple="multiple" name="imgMultipleFile" >
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">商品说明：</label>
+											<div class="col-sm-8">
+												<%include("/resources/template/lib/wysiwyg.html",{eId:"description",eValue:commodityDto.description!'请输入商品说明'}){}%>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">购买须知：</label>
+											<div class="col-sm-8">
+												<%include("/resources/template/lib/wysiwyg.html",{eId:"purchaseNotes",eValue:commodityDto.purchaseNotes!'请输入购买须知'}){}%>
+											</div>
+										</div>
+
+										<!-- 用于存放商品说明、购买须知、配送说明 -->
+										<input type="hidden" name="description">
+										<input type="hidden" name="purchaseNotes">
+										<input type="hidden" name="distribution">
+										<!-- 用于存放商品说明、购买须知、配送说明 -->
+									</div>
+								</div>
+								<div class="panel panel-default">
+									<div class="panel-heading">价格</div>
+									<div class="panel-body">
+										<div class="form-group">
+											<label class="col-sm-3 control-label">现价：
+											<br>(请保留一位小数)
+											</label>
+											<div class="col-sm-8">
+												<input id="currentPrice" type="text" placeholder="请输入现价"
+													class="form-control" name="currentPrice" value="${commodityDto.currentPrice!}">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">原价：
+											<br>(请保留一位小数)
+											</label>
+											<div class="col-sm-8">
+												<input id="price" type="text" placeholder="请输入原价"
+													class="form-control" name="price" value="${commodityDto.price!}">
+											</div>
+										</div>
+									</div>
+								</div>
+								<%include("/resources/template/lib/commodityEdit.html",{}){}%>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<%include("/resources/template/lib/inStore.html",{}){}%>
+<%}%>

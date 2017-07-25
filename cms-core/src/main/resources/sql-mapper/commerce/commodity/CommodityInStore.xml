@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.core.commerce.commodity.dao.CommodityInStoreDao">
+
+	<resultMap type="com.cms.core.commerce.commodity.domain.CommodityInStoreDto" id="rs_commodityCategory">
+		<result property="id" column="id" javaType="long" jdbcType="INTEGER" />
+		<result property="commodityId" column="commodity_id" javaType="LONG" jdbcType="INTEGER" />
+		<result property="inStoreAmount" column="in_store_amount" javaType="long" jdbcType="INTEGER" />
+		<result property="batchNumber" column="batch_number" javaType="String" jdbcType="VARCHAR" />
+		<result property="storeAmount" column="store_amount" javaType="long" jdbcType="INTEGER" />
+		<result property="inStoreTime" column="in_store_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result property="status" column="status" javaType="short" jdbcType="INTEGER" />
+		<result property="type" column="type" javaType="short" jdbcType="INTEGER" />
+		<result property="relativeId" column="relative_id" javaType="long" jdbcType="INTEGER" />
+	</resultMap>
+
+	<select id="findListByParams" parameterType="java.util.Map" resultType="java.util.HashMap">
+		select cis.id,
+		cis.commodity_id "commodityId",
+		cis.in_store_amount "inStoreAmount",
+		cis.batch_number "batchNumber",
+		cis.store_amount "storeAmount",
+		cis.in_store_time "inStoreTime",
+		cis.status "status",
+		c.name "name"
+		from
+		commodity_in_store cis
+		left join commodity c
+		on c.status != 5
+		and c.id = cis.commodity_id
+		where cis.status != 5
+		<if test="commodityId != null">
+			and cis.commodity_id = #{commodityId}
+		</if>
+		<if test="relativeId != null">
+			and cis.relative_id = #{relativeId}
+		</if>
+		<if test="type != null">
+			and cis.type = #{type}
+		</if>
+		order by cis.in_store_time desc 
+	</select>
+	
+	<insert id="insert" parameterType="com.cms.core.commerce.commodity.domain.CommodityInStoreDto">
+		INSERT INTO eshop.commodity_in_store(
+	commodity_id, in_store_amount, batch_number, store_amount, in_store_time, status,type,relative_id)
+	VALUES (#{commodityId}, #{inStoreAmount}, #{batchNumber}, #{storeAmount}, #{inStoreTime}, #{status},#{type},#{relativeId});
+	</insert>
+</mapper>

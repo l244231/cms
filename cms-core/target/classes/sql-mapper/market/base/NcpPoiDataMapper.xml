@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.core.market.base.dao.NcpPoiDataDao">
+	<resultMap type="com.cms.core.market.base.domain.NcpPoiDataDto" id="rs_ncpPoiData">
+		<result property="poiId" column="POI_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="buildingId" column="BUILDING_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="buildingName" column="BUILDING_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="color" column="COLOR" javaType="int" jdbcType="INTEGER" />
+		<result property="createDate" column="CREATE_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result property="layer" column="LAYER" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="floorId" column="FLOOR_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="floorIndex" column="FLOOR_INDEX" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="floorName" column="FLOOR_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="geoId" column="GEO_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="geometry" column="GEOMETRY" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="latitude" column="LATITUDE" javaType="float" jdbcType="NUMERIC" />
+		<result property="longitude" column="LONGITUDE" javaType="float" jdbcType="NUMERIC" />
+		<result property="name" column="NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="poiType" column="POI_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="shapeArea" column="SHAPE_AREA" javaType="float" jdbcType="NUMERIC" />
+		<result property="shapeLeng" column="SHAPE_LENG" javaType="float" jdbcType="NUMERIC" />
+		<result property="updateDate" column="UPDATE_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result property="version" column="VERSION" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="remark" column="REMARK" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="areaType" column="AREA_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="poiView" column="POI_VIEW" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="labelX" column="LABEL_X" javaType="float" jdbcType="NUMERIC" />
+		<result property="labelY" column="LABEL_Y" javaType="float" jdbcType="NUMERIC" />
+		<result property="nameEn" column="NAME_EN" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="nameTc" column="NAME_TC" javaType="java.lang.String" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="findAllListByParams" parameterType="java.util.Map" resultMap="rs_ncpPoiData">
+		select POI_ID
+			,BUILDING_ID
+			,BUILDING_NAME
+			,COLOR
+			,CREATE_DATE
+			,LAYER
+			,FLOOR_ID
+			,FLOOR_INDEX
+			,FLOOR_NAME
+			,GEO_ID
+			,GEOMETRY
+			,LATITUDE
+			,LONGITUDE
+			,NAME
+			,POI_TYPE
+			,SHAPE_AREA
+			,SHAPE_LENG
+			,UPDATE_DATE
+			,VERSION
+			,REMARK
+			,AREA_TYPE
+			,POI_VIEW
+			,LABEL_X
+			,LABEL_Y
+			,NAME_EN
+			,NAME_TC
+		from NCP_POI_DATA
+		where BUILDING_ID=31010000012
+	</select>
+	
+	<sql id="poiDataList">
+		select POI_ID "poiId"
+			,FLOOR_NAME "floorName"
+			,NAME "name"
+			,FLOOR_ID "floorId"
+		from NCP_POI_DATA
+		where BUILDING_ID=31010000012
+		and NAME is not null
+		<if test="keyWord != null and keyWord != ''">
+			and ((NAME like '%${keyWord}%' ) or ( NAME like '%${keyWord}%'))
+		</if>
+	</sql>
+	
+	<select id="countListByParams" parameterType="java.util.Map" resultType="long">
+		select count(1) from (
+		<include refid="poiDataList" />
+		)rs
+	</select>
+	
+	<select id="findListByParams" parameterType="java.util.Map" resultType="java.util.Map">
+		select * from
+		(
+		<include refid="poiDataList" />
+		) rs
+		order by rs.poiId offset #{offset} row fetch next #{limit} rows only
+	</select>
+</mapper>

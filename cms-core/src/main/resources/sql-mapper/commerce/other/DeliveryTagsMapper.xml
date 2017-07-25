@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.core.commerce.other.dao.DeliveryTagsDao">
+	<resultMap type="com.cms.core.commerce.other.domain.DeliveryTagsDto"
+		id="rs_deliveryTags">
+		<result property="name" column="name" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="nameEn" column="name_en" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+		<result property="creationTime" column="creation_time" javaType="java.util.Date"
+			jdbcType="TIMESTAMP" />
+		<result property="lastModified" column="last_modified" javaType="java.util.Date"
+			jdbcType="TIMESTAMP" />
+		<result property="status" column="status" javaType="short"
+			jdbcType="INTEGER" />
+	</resultMap>
+
+	<select id="findAllList" resultMap="rs_deliveryTags">
+		SELECT * FROM delivery_tags
+		where STATUS!=5 ORDER BY id
+	</select>
+
+</mapper>

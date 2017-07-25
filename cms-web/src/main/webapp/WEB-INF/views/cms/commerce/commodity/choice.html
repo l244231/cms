@@ -1,0 +1,45 @@
+<% layout("/resources/template/sub/grid.html",{functionPath:'/resources/js/cms/commerce/commodity/choice'}){ %>
+<div class="wrapper wrapper-content animated fadeInUp">
+	<div class=" float-e-margins detailFrom">
+		<div class="row row-lg">
+			<div class="col-sm-12">
+				<div class="ibox">
+					<div class="ibox-title">
+						<a href="javascript:history.go(-1);" type="button" class="btn  btn-default " title="返回" style="float: left; margin-right: 10px;"> 返回 </a>
+						<h5>添加商品</h5>
+						<div class="ibox-tools">
+							<a type="button" class="btn   btn-primary " id="confirmBut" href="javascript:void(0);">
+								确定
+							</a>
+						</div>
+					</div>
+					<div class="ibox-content">
+						<div class="columns hidden-xs" style="margin-top: 0px;" id="commodityGroupTableToolbar" role="group">
+							<form class="form-horizontal searchBar" id="commodityGroupForm">
+								<label class="control-label">关键字：</label> 
+								<input id="keyword" type="text" placeholder="请输入关键词" class="form-control w-150" name="keyword" value=""> 
+								<label class="control-label">类型：</label> 
+								<select id=categoryId data-size="8" class="selectpicker form-control w-150" placeholder="请选择类型" name="categoryId">
+									<option value="">全部</option>
+								</select> <label class="control-label">商铺名：</label> 
+								<select id="storeId" class=" form-control w-150" placeholder="请选择类型" name="storeId">
+									<option value="">全部</option>
+									<%
+										for(shop in ncpShopDtoList){
+									%>
+										<option value="${shop.id!}">${shop.shopName!}</option>
+									<%}%>
+								</select>
+							</form>
+						</div>
+						<table id="inTheSaleTable" data-mobile-responsive="true">
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<input type="hidden" id="commodityTypeForUrl" value="${commodityTypeForUrl!}">
+	<input type="hidden" id="method" value="${method!}">
+</div>
+<%}%>

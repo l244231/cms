@@ -1,0 +1,190 @@
+<div class="panel panel-default">
+	<div class="panel-heading">规格</div>
+	<div class="panel-body">
+		<div class="form-group">
+			<label class="col-sm-3 control-label">规格名称：</label>
+			<div class="col-sm-8">
+				<div class="row m-b-md">
+					<div class="col-md-12">
+						<input id="specName" name="specName" type="text" placeholder="请输入规格名称"
+							class="form-control" value="${commodityDto.specName!}">
+					</div>
+				</div>
+				
+				<div id="addSpecDiv">
+					<%for(commoditySpecDto in commoditySpecDtoList!){%>
+						<div class="row m-b-md">
+							<div class="col-md-5">
+								<input type="text" placeholder="请输入子规格" class="form-control nodeInput" value="${commoditySpecDto.specName!}" >
+							</div>
+							<div class="col-md-5">
+								<input type="text" placeholder="请输入价格增加值" class="form-control numInput" value="${commoditySpecDto.priceFluctuation!}">
+							</div>
+							<div class='col-md-2'>
+								<a class='delSpec' href='javascript:void(0);'>
+									<i style='font-size:30px;color:red;' class='fa fa-close'></i>
+								</a>
+							</div>
+						</div>
+					<%}%>
+				</div>
+				<div class="row m-b-md">
+					<div class="col-md-12">
+						<input id="addSpec" class="col-md-12 btn  btn-info "
+							type="button" value="添加子规格(可选)">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label">分类名称：</label>
+			<div class="col-sm-8">
+				<div id="addColorDiv">
+					<%for(commodityColorDto in commodityColorDtoList!){%>
+						<div class="row m-b-md">
+							<div class="col-md-5">
+								<input type="text" placeholder="请输入分类名称" class="form-control nodeInput" value="${commodityColorDto.colorName!}" >
+							</div>
+							<div class="col-md-5">
+								<input type="text" placeholder="请输入价格增加值" class="form-control numInput" value="${commodityColorDto.priceFluctuation!}">
+							</div>
+							<div class='col-md-2'>
+								<a class='delSpec' href='javascript:void(0);'>
+									<i style='font-size:30px;color:red;' class='fa fa-close'></i>
+								</a>
+							</div>
+						</div>
+					<%}%>
+				</div>
+				<div class="row m-b-md">
+					<div class="col-md-12">
+						<input id="addColor"  class="col-md-12 btn  btn-info "
+							type="button" value="添加分类(可选)">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="panel panel-default">
+	<div class="panel-heading">库存</div>
+	<div class="panel-body">
+		<div class="form-group">
+			<label class="col-sm-3 control-label">库存：</label>
+			<div class="col-sm-8">
+					<%if(isEdit){
+					%>
+						<div class="row m-b-md">
+							<div class="col-md-4">
+								<input id="" type="text" 
+									class="form-control" style="text-align: center;"
+									readonly="readonly" value="${commodityDto.stock!0}">
+							</div>
+							<div class="col-md-4">
+								<input id="stock" name="stock" type="text" placeholder="请输入库存"
+									class="form-control">
+							</div>
+							<div class="col-md-4">
+								<input id="addStock" class="col-md-6 btn  btn-info " type="button"
+									value="添加"> <a class="col-md-6" data-toggle="modal" data-target="#inStoreModal">入库记录</a>
+							</div>
+						</div>
+					<%}else{%>
+						<input id="stock" name="stock" type="text" placeholder="请填写库存" class="form-control" >
+					<%	
+					}
+					%>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">销量(可选)：</label>
+			<div class="col-sm-8">
+				<%if(isEdit){
+				%>
+				<div class="row m-b-md">
+					<div class="col-md-4">
+						<input id="" type="text" 
+							class="form-control" style="text-align: center;"
+							readonly="readonly" value="${commodityDto.sale!0}">
+					</div>
+					<div class="col-md-4">
+						<input id="sale" name="sale" type="text" placeholder="请输入库存"
+							class="form-control">
+					</div>
+					<div class="col-md-4">
+						<input id="addSales" class="col-md-6 btn  btn-info " type="button" value="添加">
+					</div>
+				</div>
+				<%}else{%>
+				
+				<input id="sale" name="sale" type="text" placeholder="请填写销量" class="form-control" >
+				
+				<%	
+				}
+				%>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">人气(可选)：</label>
+			<div class="col-sm-8">
+				<%if(isEdit){%>
+				<div class="row m-b-md">
+					<div class="col-md-4">
+						<input id="" type="text" 
+							class="form-control" style="text-align: center;"
+							readonly="readonly" value="${commodityDto.popularity!0}">
+					</div>
+					<div class="col-md-4">
+						<input id="popularity" name="popularity" type="text" placeholder="请输入人气"
+							class="form-control">
+					</div>
+					<div class="col-md-4">
+						<input id="addPopular" class="col-md-6 btn  btn-info " type="button" value="添加"> 
+					</div>
+				</div>
+				
+				<%}else{%>
+				
+				<input id="popularity" name="popularity" type="text" placeholder="请填写人气" class="form-control" >
+				
+				<%	
+				}
+				%>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="panel panel-default">
+	<div class="panel-heading">配送说明</div>
+	<div class="panel-body">
+		<div class="form-group">
+			<label class="col-sm-3 control-label">配送标签：</label>
+			<div class="col-sm-8">
+				<% var ids=deliveryIds![{}];%>
+				<%for(deliveryTagsDto in deliveryTagsDtoList!){%>
+					<label class="checkbox-inline i-checks"> 
+						<% if(ids!=null){
+						%>
+						<input type="checkbox" <% if(ids[deliveryTagsDto.id]==true){%>checked="checked"<% } %>  value="${deliveryTagsDto.id}" name="delivery">${deliveryTagsDto.name}
+						<%
+						}else{
+						%>
+						<input type="checkbox"  value="${deliveryTagsDto.id}" name="delivery">${deliveryTagsDto.name}
+						<%
+						} %>
+					</label>
+				<%}%>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">配送说明：</label>
+			<div class="col-sm-8">
+				<textarea id="distributionText" class="form-control" placeholder="请输入配送说明" style="height: 218px;">${commodityDto.distribution!}</textarea>
+				
+			</div>
+		</div>
+	</div>
+</div>
+							

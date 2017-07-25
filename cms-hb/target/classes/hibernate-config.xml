@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+                        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd    
+                        http://www.springframework.org/schema/context    
+                        http://www.springframework.org/schema/context/spring-context-4.3.xsd   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+                        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+                        ">
+
+	<!-- 引入配置文件 -->
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<!-- 测试环境 -->
+		<property name="location" value="classpath:sql-config.properties"></property>
+		<!-- 真实环境
+		<property name="location" value="file:c:\CMS\sql-config.properties"></property>  --> 
+	</bean>
+
+	<!-- PG库数据源配置 -->
+	<bean id="dataSourceHb" init-method="init" destroy-method="close" class="com.alibaba.druid.pool.DruidDataSource">
+		<property name="driverClassName" value="${driver}" />
+		<property name="url" value="${url}" />
+		<property name="username" value="${username}" />
+		<property name="password" value="${password}" />
+		<!-- 初始化连接大小 -->
+		<property name="initialSize" value="${hb_initialSize}" />
+		<!-- 连接池最大使用连接数量 -->
+		<property name="maxActive" value="${hb_maxActive}" />
+		<!-- 连接池最大空闲 -->
+		<property name="maxIdle" value="${hb_maxIdle}" />
+		<!-- 连接池最小空闲 -->
+		<property name="minIdle" value="${hb_minIdle}" />
+		<!-- 获取连接最大等待时间 -->
+		<property name="maxWait" value="${hb_maxWait}" />
+		
+	</bean>
+
+	<!-- org.springframework.orm.hibernate4.LocalSessionFactoryBean -->
+	<bean id="sessionFactoryHb" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceHb" />
+		<property name="configLocation">
+			<value>classpath:hibernate.cfg.xml</value>
+		</property>
+		<property name="packagesToScan">
+			<list>
+				<value>com.cms.hb.commerce.common.domain</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${dialect}</prop>
+				<prop key="hibernate.show_sql">${showSql}</prop>
+				<prop key="hibernate.format_sql">${formatSql}</prop>
+				<!-- <prop key="hibernate.use_sql_commants">${useSqlComments}</prop> -->
+				<prop key="hibernate.hbm2ddl.auto">${hbm2ddl.auto}</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- -->
+	<bean id="txManagerHb" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactoryHb" />
+	</bean>
+	<tx:advice id="txAdviceHb" transaction-manager="txManagerHb">
+		<tx:attributes>
+			<tx:method name="find*" read-only="true" />
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="query*" read-only="true" />
+			<tx:method name="select*" read-only="true" />
+			<tx:method name="load*" read-only="true" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="create" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<aop:pointcut id="txPointcutHb" expression="execution(* com.cms.hb.**.service.impl.*.*(..))" />
+		<aop:advisor advice-ref="txAdviceHb" pointcut-ref="txPointcutHb" />
+	</aop:config>
+	<tx:annotation-driven transaction-manager="txManagerHb" proxy-target-class="true" />
+
+	<context:component-scan base-package="com.cms.hb.commerce.common.dao.impl" />
+</beans>

@@ -1,0 +1,255 @@
+<%
+layout("/resources/template/sub/grid.html",{functionPath:'/resources/js/cms/commerce/commodity/form'}){
+%>
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="breadcrumbBar">
+		<ol class="breadcrumb">
+			<li><a href="${basePath}/commerce/commodity/page">商品管理</a></li>
+			<li class="active">商品详情</li>
+		</ol>
+	</div>
+	<form class="form-horizontal m-t  detailFrom"  >
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox">
+					<div class="ibox-title">
+						<a href="${basePath}/commerce/commodity/page?isBack=true" type="button"
+							class="btn  btn-default" 
+							style="float: left; margin-right: 10px;"> 返回 </a>
+							
+							<h5>商品详情</h5>
+							
+						<div class="ibox-tools">
+							<button type="button" class="btn   btn-primary ">
+								跳转到商品评论</button>
+							<button type="button" class="btn   btn-primary ">
+								预览</button>
+						</div>
+					</div>
+					<div class="ibox-content">
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="panel panel-default">
+									<div class="panel-heading">商品图片</div>
+									<div class="panel-body">
+										<div class="showImg">
+											<a href="javascript:void(0)" class="thumbnail"> 
+												<img style="" src="${basePath}/commerce/binaryFile/getFileById?id=${commodityDto.listIconId!}">
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-8">
+								<div class="panel panel-default">
+									<div class="panel-heading">商品信息</div>
+									<div class="panel-body">
+										<div class="form-group">
+											<label class="col-sm-3 control-label">商品名：</label>
+											<div class="col-sm-8">
+												${commodityDto.name!}
+											</div>
+										</div>
+										<!-- 团购长名称即为商品的名称(商品名称分为名称和短名称) -->
+										<div class="form-group">
+											<label class="col-sm-3 control-label">商品短名称：</label>
+											<div class="col-sm-8">
+												${commodityDto.shortName!}
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">排序：</label>
+											<div class="col-sm-8">
+												${commodityDto.sortId!}
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">状态：</label>
+											<div class="col-sm-8">
+												<%sysPara("commodityStatus",commodityDto.status!''); %>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">所属店铺：</label>
+											<div class="col-sm-8">
+												<%for(ncpShopDto in ncpShopDtoList){%>
+													<%if(commodityDto.storeId==ncpShopDto.id){
+													%>
+													${ncpShopDto.shopName!}
+													<%
+													}%>
+												<%}%>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">所属类型：</label>
+											<div class="col-sm-8">
+												<%for(commodityCategoryDto in commodityCategoryDtoList){%>
+													<%if(commodityDto.categoryId==commodityCategoryDto.id){
+													%>
+													${commodityCategoryDto.name!}
+													<%
+													}%>
+												<%}%>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">商品图片：</label>
+											<div class="col-sm-8">
+												<%for(commodityIconFileId in commodityIconFileIds!){%>
+													<div class='col-sm-4'>
+														<div class='thumbnail'>
+															<img style="width:100px;height:100px;"
+															src="${basePath}/commerce/binaryFile/getFileById?id=${commodityIconFileId!}"
+															/>
+														</div>
+													</div>
+												<%}%>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">商品说明：</label>
+											<div class="col-sm-8">
+												<div class="editorContainer">
+													<div class="editor" >
+														${commodityDto.description!''}
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">购买须知：</label>
+											<div class="col-sm-8">
+												<div class="editorContainer">
+													<div class="editor" >
+														${commodityDto.purchaseNotes!''}
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="panel panel-default">
+									<div class="panel-heading">价格</div>
+									<div class="panel-body">
+										<div class="form-group">
+											<label class="col-sm-3 control-label">现价：</label>
+											<div class="col-sm-8">
+												${commodityDto.currentPrice!}
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">原价：</label>
+											<div class="col-sm-8">
+												${commodityDto.price!}
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="panel panel-default">
+									<div class="panel-heading">规格</div>
+									<div class="panel-body">
+										<div class="form-group">
+											<label class="col-sm-3 control-label">规格名称：</label>
+											<div class="col-sm-8">
+												<div class="row m-b-md">
+													<div class="col-md-12">
+														${commodityDto.specName!}
+													</div>
+												</div>
+												
+												<div id="addSpecDiv">
+													<%for(commoditySpecDto in commoditySpecDtoList!){%>
+														<div class="row m-b-md">
+															<div class="col-md-6">
+																${commoditySpecDto.specName!}
+															</div>
+															<div class="col-md-6">
+																${commoditySpecDto.priceFluctuation!}
+															</div>
+															
+														</div>
+													<%}%>
+												</div>
+											</div>
+										</div>
+								
+										<div class="form-group">
+											<label class="col-sm-3 control-label">分类名称：</label>
+											<div class="col-sm-8">
+												<div id="addColorDiv">
+													<%for(commodityColorDto in commodityColorDtoList!){%>
+														<div class="row m-b-md">
+															<div class="col-md-6">
+																${commodityColorDto.colorName!}
+															</div>
+															<div class="col-md-6">
+																${commodityColorDto.priceFluctuation!}
+															</div>
+														</div>
+													<%}%>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="panel panel-default">
+									<div class="panel-heading">库存</div>
+									<div class="panel-body">
+										<div class="form-group">
+											<label class="col-sm-3 control-label">库存：</label>
+											<div class="col-sm-8">
+												<div class="row m-b-md">
+													<div class="col-md-12">
+														${commodityDto.stock!}
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="panel panel-default">
+									<div class="panel-heading">配送说明</div>
+									<div class="panel-body">
+										<div class="form-group">
+											<label class="col-sm-3 control-label">配送标签：</label>
+											<div class="col-sm-8">
+												<% var ids=deliveryIds![{}];%>
+												<%for(deliveryTagsDto in deliveryTagsDtoList!){%>
+													<label class="checkbox-inline i-checks"> 
+														<% if(ids!=null){
+														%>
+														<input type="checkbox" disabled="disabled" <% if(ids[deliveryTagsDto.id]==true){%>checked="checked"<% } %>  value="${deliveryTagsDto.id}" name="delivery">${deliveryTagsDto.name}
+														<%
+														}else{
+														%>
+														<input type="checkbox" disabled="disabled" value="${deliveryTagsDto.id}" name="delivery">${deliveryTagsDto.name}
+														<%
+														} %>
+													</label>
+												<%}%>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">配送说明：</label>
+											<div class="col-sm-8">
+												
+												<div class="editorContainer">
+													<div class="editor" >
+														${commodityDto.distribution!''}
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<%}%>

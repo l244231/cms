@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.core.market.business.dao.NcpShopActivityDao">
+	<resultMap type="com.cms.core.market.business.domain.NcpShopActivityDto" id="rs_audiovisual">
+		<result property="activityId" column="ACTIVITY_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="shopId" column="SHOP_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="name" column="NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="content" column="CONTENT" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="imageId" column="IMAGE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="startDate" column="START_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result property="endDate" column="END_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result property="overTime" column="OVER_TIME" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="status" column="STATUS" javaType="short" jdbcType="INTEGER" />
+		<result property="createDate" column="CREATE_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result property="createUser" column="CREATE_USER" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="updateDate" column="UPDATE_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+		<result property="updateUser" column="UPDATE_USER" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="extend1" column="EXTEND1" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="extend2" column="EXTEND2" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="extend3" column="EXTEND3" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="extend4" column="EXTEND4" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="extend5" column="EXTEND5" javaType="java.lang.String" jdbcType="VARCHAR" />
+	</resultMap>
+
+	 <select id="findAllListByParams" parameterType="java.util.Map" resultMap="rs_audiovisual">
+	 	select 
+	 	ACTIVITY_ID
+		,SHOP_ID
+		,NAME
+		,CONTENT
+		,IMAGE_ID
+		,START_DATE
+		,END_DATE
+		,OVER_TIME
+		,STATUS
+		,CREATE_DATE
+		,CREATE_USER
+		,UPDATE_DATE
+		,UPDATE_USER
+		,EXTEND1
+		,EXTEND2
+		,EXTEND3
+		,EXTEND4
+		,EXTEND5
+		from NCP_SHOP_ACTIVITY
+		where STATUS = 1
+		<if test="shopId != null">
+			and SHOP_ID = #{shopId}
+		</if>
+	 </select>
+</mapper>

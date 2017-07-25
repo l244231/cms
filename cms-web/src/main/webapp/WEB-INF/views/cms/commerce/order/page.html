@@ -1,0 +1,148 @@
+<% layout("/resources/template/sub/grid.html",{functionPath:'/resources/js/cms/commerce/order/page'}){ %>
+
+<div class="wrapper wrapper-content animated fadeInUp">
+	<!-- Panel Other -->
+	<div class=" float-e-margins">
+
+		<div class="row row-lg">
+			<div class="col-sm-12">
+				<!-- Example Events -->
+				<div class="tabs-container">
+					<ul class="nav nav-tabs">
+						<li class="active">
+							<a data-toggle="tab" href="#tab-1" aria-expanded="true">全部订单</a>
+						</li>
+						<li class="">
+							<a data-toggle="tab" href="#tab-2" aria-expanded="true">待发货</a>
+						</li>
+						<li class="">
+							<a data-toggle="tab" href="#tab-3" aria-expanded="true">待支付</a>
+						</li>
+						<li class="">
+							<a data-toggle="tab" href="#tab-4" aria-expanded="true">待评论</a>
+						</li>
+					</ul>
+					<div class="tab-content">
+						<div id="tab-1" class="tab-pane active">
+							<div class="panel-body">
+								<div class="columns hidden-xs" style="margin-top:0px;" id="orderAllTableToolbar" role="group">
+                                    <form class="form-horizontal searchBar">
+                                    	<label class="control-label">关键字：</label>
+										<input id="keyWord_All" type="text" placeholder="订单号或联系方式"
+												class="form-control w-150"  name="keyWord">
+										<label class="control-label">日期：</label>
+										<input id="date_All" type="text" placeholder="请选择日期"
+												class="form-control w-240 laydate-icon" style="vertical-align:baseline;"  name="date">
+                                   		<label class="control-label">-</label>
+										<input id="date_All_end" type="text" placeholder="请选择日期"
+												class="laydate-icon form-control w-240 " style="vertical-align:baseline;" name="date">
+                                    </form>
+                                </div>
+								<table id="orderAllTable"  data-mobile-responsive="true">
+								</table>
+							</div>
+						</div>
+						<div id="tab-2" class="tab-pane">
+							<div class="panel-body">
+								<div class="columns hidden-xs" style="margin-top:0px;" id="orderIssueTableToolbar" role="group">
+                                    <form class="form-horizontal searchBar">
+                                    	<label class="control-label">关键字：</label>
+										<input id="keyWord_Issue" type="text" placeholder="订单号或联系方式"
+												class="form-control w-150"  name="keyWord">
+										<label class="control-label">日期：</label>
+										<input id="date_Issue" type="text" placeholder="请选择日期"
+												class="laydate-icon form-control w-240 " style="vertical-align:baseline;" name="date">
+                                    	<label class="control-label">-</label>
+										<input id="date_Issue_end" type="text" placeholder="请选择日期"
+												class="laydate-icon form-control w-240 " style="vertical-align:baseline;" name="date">
+                                    </form>
+                                </div>
+								<table id="orderIssueTable"  data-mobile-responsive="true">
+								</table>
+							</div>
+						</div>
+						<div id="tab-3" class="tab-pane">
+							<div class="panel-body">
+								<div class="columns hidden-xs" style="margin-top:0px;" id="orderPayTableToolbar" role="group">
+                                    <form class="form-horizontal searchBar">
+                                    	<label class="control-label">关键字：</label>
+										<input id="keyWord_Pay" type="text" placeholder="订单号或联系方式"
+												class="form-control w-150"  name="keyWord">
+										<label class="control-label">日期：</label>
+										<input id="date_Pay" type="text" placeholder="请选择日期"
+												class="laydate-icon form-control w-240 " style="vertical-align:baseline;" name="date">
+										<label class="control-label">-</label>
+										<input id="date_Pay_end" type="text" placeholder="请选择日期"
+												class="laydate-icon form-control w-240 " style="vertical-align:baseline;" name="date">
+                                    </form>
+                                </div>
+								<table id="orderPayTable"  data-mobile-responsive="true">
+								</table>
+							</div>
+						</div>
+						<div id="tab-4" class="tab-pane">
+							<div class="panel-body">
+								<div class="columns hidden-xs" style="margin-top:0px;" id="orderCommentTableToolbar" role="group">
+                                    <form class="form-horizontal searchBar">
+                                    	<label class="control-label">关键字：</label>
+										<input id="keyWord_Comment" type="text" placeholder="订单号或联系方式"
+												class="form-control w-150"  name="keyWord">
+										<label class="control-label">日期：</label>
+										<input id="date_Comment" type="text" placeholder="请选择日期"
+												class="laydate-icon form-control w-240 " style="vertical-align:baseline;" name="date">
+                                    	<label class="control-label">-</label>
+										<input id="date_Comment_end" type="text" placeholder="请选择日期"
+												class="laydate-icon form-control w-240 " style="vertical-align:baseline;" name="date">
+                                   
+                                    </form>
+                                </div>
+								<table id="orderCommentTable"  data-mobile-responsive="true">
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal inmodal" id="IssueModal" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content animated bounceInRight">
+			<div class="modal-header">
+				<!-- <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
+                </button> -->
+				<h4 class="modal-title">发货确认</h4>
+			</div>
+			<form class="form-horizontal m-t" id="IssueForm">
+				<div class="modal-body">
+					<div class="form-group">
+						<label class="col-sm-3 control-label">快递公司：</label>
+						<div class="col-sm-8">
+							<select id="express" class=" form-control" placeholder="请选择" name="express"> 
+							<% for(express in expressList){%>
+								<option value="${express.id!}">${express.expressName!}</option> 
+							<%}%>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">快递单号：</label>
+						<div class="col-sm-8">
+							<input id="expressNo" type="text" placeholder="请输入快递单号" class="form-control" name="expressNo">
+						</div>
+					</div>
+					<input type="hidden" name="orderNo" id="orderNo">
+				</div>
+				<div class="modal-footer" style="text-align: center;">
+					<button type="submit" class="btn btn-primary" id="doIssue">确认发货</button>
+					<button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+		<script>
+			var isBack = '${isBack}';
+		</script>
+<%}%>

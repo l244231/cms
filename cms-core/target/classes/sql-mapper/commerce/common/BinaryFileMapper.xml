@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.core.commerce.common.dao.BinaryFileDao">
+
+	<resultMap type="com.cms.core.commerce.common.domain.BinaryFileDto"
+		id="resultMap">
+		<result property="id" column="id" javaType="long" jdbcType="INTEGER" />
+		<result property="type" column="type" javaType="int" jdbcType="INTEGER" />
+		<result property="mimeType" column="mime_type" javaType="int"
+			jdbcType="INTEGER" />
+		<result property="content" column="content" javaType="byte[]"
+			jdbcType="LONGVARCHAR" />
+		<result property="status" column="status" javaType="short"
+			jdbcType="SMALLINT" />
+	</resultMap>
+
+	<insert id="insert" parameterType="com.cms.core.commerce.common.domain.BinaryFileDto">
+		<selectKey resultType="java.lang.Long" order="AFTER"
+			keyProperty="id">
+			SELECT currval('binary_file_id_seq') AS id
+		</selectKey>
+		insert into
+		binary_file(content) values(#{content})
+	</insert>
+	
+	<select id="findById" parameterType="long" resultType="com.cms.core.commerce.common.domain.BinaryFileDto">
+		select * from binary_file where id=#{id} and status!=5
+	</select>
+	
+	<update id="update" parameterType="long">
+		update binary_file set status=5 where id=#{id}
+	</update>
+
+</mapper>

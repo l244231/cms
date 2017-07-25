@@ -1,0 +1,15 @@
+Trying to change property 'svn:ignore'
+but the property has already been locally changed to a different value.
+.settings
+
+target
+<<<<<<< (local property value)
+
+bin
+||||||| (incoming 'changed from' value)
+=======
+
+bin
+
+cms-web.iml
+>>>>>>> (incoming 'changed to' value)
